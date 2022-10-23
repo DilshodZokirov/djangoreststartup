@@ -46,7 +46,6 @@ class UserCreateSerializer(Serializer):
         fields = [
             'district',
             'profile_pic',
-            'username',
             'first_name',
             'last_name',
             'date_of_birth',
