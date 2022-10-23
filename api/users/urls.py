@@ -8,5 +8,5 @@ router = DefaultRouter()
 router.register("registration", RegistrationModelViewSet)
 router.register("worker", WorkerModelViewSet)
 urlpatterns = [
-    path("authorizthation/", include(router.urls))
+    path("", include(router.urls))
 ]
