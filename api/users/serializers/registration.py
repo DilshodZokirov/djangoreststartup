@@ -31,7 +31,6 @@ class LoginUserSerializer(serializers.Serializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    # username = serializers.CharField(required=False)
     first_name = serializers.CharField(required=False)
     email = serializers.EmailField(required=False)
     password = serializers.CharField()
@@ -53,7 +52,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs: dict):
         phone_number = attrs.get('phone_number')
-        user_name = attrs.get("username")
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError(
                 "Bunaqa telefon nomerli inson bizda bor iltimos boshqa nomerdan foydalaning yoki login qismiga o'ting !!!")
@@ -97,7 +95,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id',
-            'username',
             'first_name',
             'last_name',
             'role',
