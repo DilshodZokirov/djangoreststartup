@@ -20,6 +20,10 @@ class WorkerModelViewSet(ModelViewSet):
     serializer_class = GetAllSerializer
     filter_backends = (SearchFilter,)
 
+    # @action(methods=["post"], detail=False)
+    # def create_district(self, request):
+    #     self.serializer_class =
+
     @swagger_auto_schema(method="post", request_body=UserCreateSerializer,
                          responses={200: "Successfully Created", 400: "Bad Request"})
     @action(methods=["post"], detail=False)

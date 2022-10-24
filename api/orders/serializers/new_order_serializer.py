@@ -70,8 +70,10 @@ class NewOrderSerializer(Serializer):
             "phone_number",
             "customer_name",
             "comment",
-            "seller",
         ]
+
+    def create(self, validated_data):
+        seller = self.context['request'].user
 
 
 # Order Product Serializers
