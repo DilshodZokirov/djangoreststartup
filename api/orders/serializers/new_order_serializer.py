@@ -56,25 +56,25 @@ class OrderClassesSerializer(Serializer):
             "phone_number"
         ]
 
-
-class NewOrderSerializer(Serializer):
-    pharmacy_name = serializers.CharField(max_length=400)
-    phone_number = serializers.CharField(max_length=20)
-    customer_name = serializers.CharField(max_length=70)
-    comment = serializers.CharField(max_length=500)
-
-    class Meta:
-        model = Order
-        fields = [
-            "pharmacy_name",
-            "phone_number",
-            "customer_name",
-            "comment",
-        ]
-
-    def create(self, validated_data):
-        seller = self.context['request'].user
-
+#
+# class NewOrderSerializer(Serializer):
+#     pharmacy_name = serializers.CharField(max_length=400)
+#     phone_number = serializers.CharField(max_length=20)
+#     customer_name = serializers.CharField(max_length=70)
+#     comment = serializers.CharField(max_length=500)
+#
+#     class Meta:
+#         model = Order
+#         fields = [
+#             "pharmacy_name",
+#             "phone_number",
+#             "customer_name",
+#             "comment",
+#         ]
+#
+#     def create(self, validated_data):
+#         seller = self.context['request'].user
+#
 
 # Order Product Serializers
 class CreateOrderProductSerializer(serializers.Serializer):
