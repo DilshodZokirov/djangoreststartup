@@ -1,4 +1,5 @@
 from django.http import Http404
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -52,6 +53,7 @@ class OrderClientModelViewSet(ModelViewSet):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
+    @swagger_auto_schema(method="post", request_body=NewOrderSerializer)
     @action(methods=['post'], detail=False)
     def create_order(self, request, *args, **kwargs):
         self.serializer_class = NewOrderSerializer
