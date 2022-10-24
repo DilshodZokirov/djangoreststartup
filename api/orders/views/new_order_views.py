@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.orders.serializers.new_order_serializer import OrderClassesSerializer, NewOrderSerializer, \
+from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
     CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer
 from apps.orders.models import Order, OrderProduct
 
@@ -53,15 +53,15 @@ class OrderClientModelViewSet(ModelViewSet):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
-    @swagger_auto_schema(method="post", request_body=NewOrderSerializer)
-    @action(methods=['post'], detail=False)
-    def create_order(self, request, *args, **kwargs):
-        self.serializer_class = NewOrderSerializer
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({
-            "uz": "Muvaffaqiyatli yaratildi",
-            "en": "Successful Created",
-            "ru": "Успешно завершено"
-        })
+    # @swagger_auto_schema(method="post", request_body=NewOrderSerializer)
+    # @action(methods=['post'], detail=False)
+    # def create_order(self, request, *args, **kwargs):
+    #     self.serializer_class = NewOrderSerializer
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response({
+    #         "uz": "Muvaffaqiyatli yaratildi",
+    #         "en": "Successful Created",
+    #         "ru": "Успешно завершено"
+    #     })
