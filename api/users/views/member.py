@@ -31,4 +31,3 @@ class WorkerModelViewSet(ModelViewSet):
         return Response(
             {"message": "Successfully Created"}
         )
-   

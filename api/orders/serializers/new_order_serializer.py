@@ -1,6 +1,8 @@
+from rest_framework import serializers
 from rest_framework.serializers import Serializer
 
-from apps.orders.models import Order
+from apps.orders.models import Order, OrderProduct
+from apps.product.models import Product
 from apps.users.models import User
 
 
@@ -33,6 +35,15 @@ class SellerClassesSerializer(Serializer):
         ]
 
 
+class GetOneOrderSerializer(Serializer):
+    class Meta:
+        model = Order
+        fields = [
+            "order_position",
+            "pharmacy"
+        ]
+
+
 class OrderClassesSerializer(Serializer):
     seller = SellerClassesSerializer()
 
@@ -40,10 +51,47 @@ class OrderClassesSerializer(Serializer):
         model = Order
         fields = [
             "pharmacy_name",
+            "customer_name",
             "seller",
+            "phone_number"
+        ]
+
+
+class NewOrderSerializer(Serializer):
+    pharmacy_name = serializers.CharField(max_length=400)
+    phone_number = serializers.CharField(max_length=20)
+    customer_name = serializers.CharField(max_length=70)
+    comment = serializers.CharField(max_length=500)
+
+    class Meta:
+        model = Order
+        fields = [
+            "pharmacy_name",
             "phone_number",
-            "paid_price",
-            "total_price",
-            "paid_position",
-            "order_position"
+            "customer_name",
+            "comment",
+            "seller",
+        ]
+
+
+# Order Product Serializers
+class CreateOrderProductSerializer(serializers.Serializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.filter(is_deleted=False))
+    order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.filter(is_deleted=False))
+
+    class Meta:
+        model = OrderProduct
+        fields = [
+            "order",
+            "product",
+            "count"
+        ]
+
+
+class UpdateOrderProductSerializer(serializers.Serializer):
+    class Meta:
+        model = OrderProduct
+        fields = [
+            "order",
+            "product"
         ]
