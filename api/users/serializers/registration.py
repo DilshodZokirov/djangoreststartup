@@ -31,7 +31,7 @@ class LoginUserSerializer(serializers.Serializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=False)
+    # username = serializers.CharField(required=False)
     first_name = serializers.CharField(required=False)
     email = serializers.EmailField(required=False)
     password = serializers.CharField()
@@ -41,7 +41,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "username",
             "first_name",
             "last_name",
             "email",
@@ -66,13 +65,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise ValidationError("Bunaqa inson bizning ro'yxatda bor")
         if Company.objects.filter(name=attrs.get("company")).exists():
             raise ValidationError("Bunday Company bizda bor iltimos boshqa nom qo'ying !!!")
-        if User.objects.filter(username=user_name).exists():
-            raise ValidationError("Bunday nom mavjud !!!")
         return attrs
 
     @transaction.atomic
     def create(self, validated_data: dict):
-        username = validated_data.get("username")
         first_name = validated_data.get("first_name")
         last_name = validated_data.get("last_name")
         email = validated_data.get("email")
@@ -81,7 +77,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         company_name = validated_data.get("company")
         company = Company.objects.create(name=company_name)
         user = User.objects.create_user(
-            username=username,
             first_name=first_name,
             last_name=last_name,
             email=email,
