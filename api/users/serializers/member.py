@@ -29,9 +29,7 @@ class GetAllSerializer(Serializer):
         ]
 
 
-class UserCreateSerializer(Serializer):
-    # class Choices(models.Choices):
-
+class UserCreateSerializer(serializers.ModelSerializer):
     profile_pic = serializers.FileField(required=False)
     district = serializers.PrimaryKeyRelatedField(queryset=District.objects.all())
     first_name = serializers.CharField(required=False)
