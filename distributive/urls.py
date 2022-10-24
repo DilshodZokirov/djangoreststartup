@@ -52,7 +52,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(f'{version}/users/', include('api.users.urls')),
     path(f'{version}/product/', include('api.products.urls')),
-    # path(f'{version}/orders/', include('api.orders.urls'))
+    path(f'{version}/orders/', include('api.orders.urls'))
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
