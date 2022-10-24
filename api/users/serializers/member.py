@@ -73,7 +73,7 @@ class UserCreateSerializer(Serializer):
             user.last_name = validated_data.get("last_name")
             user.date_of_birth = validated_data.get("date_of_birth")
             user.role = validated_data.get("role")
-            user.date_of_birth = validated_data.get("date_of_birth")
+            # user.date_of_birth = validated_data.get("date_of_birth")
             user.phone_number = validated_data.get("phone_number")
             user.save()
         else:
