@@ -123,7 +123,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 
-ROOT_URLCONF = 'distributive.urls'
 
 TEMPLATES = [
     {
