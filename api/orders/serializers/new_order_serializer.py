@@ -78,7 +78,7 @@ class OrderClassesSerializer(Serializer):
 #
 
 # Order Product Serializers
-class CreateOrderSerializer(ModelSerializer):
+class CreateOrderSerializer(Serializer):
     class Meta:
         model = Order
         fields = [
