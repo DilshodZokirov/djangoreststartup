@@ -81,6 +81,9 @@ class OrderClassesSerializer(Serializer):
 class CreateOrderSerializer(ModelSerializer):
     class Meta:
         model = Order
+        fields = [
+            "id"
+        ]
 
     def create(self, validated_data):
         seller = self.context['request'].user
