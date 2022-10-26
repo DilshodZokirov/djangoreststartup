@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import Serializer, ModelSerializer
 
 from apps.orders.models import Order, OrderProduct
 from apps.product.models import Product
@@ -56,6 +56,7 @@ class OrderClassesSerializer(Serializer):
             "phone_number"
         ]
 
+
 #
 # class NewOrderSerializer(Serializer):
 #     pharmacy_name = serializers.CharField(max_length=400)
@@ -77,6 +78,22 @@ class OrderClassesSerializer(Serializer):
 #
 
 # Order Product Serializers
+class CreateOrderSerializer(ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            "seller"
+        ]
+
+    def create(self, validated_data):
+        seller = self.context['request'].user
+        order = Order.objects.create(
+            seller=seller
+        )
+        order.save()
+        return {"success"}
+
+
 class CreateOrderProductSerializer(serializers.Serializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.filter(is_deleted=False))
     order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.filter(is_deleted=False))

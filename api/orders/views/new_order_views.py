@@ -1,5 +1,4 @@
 from django.http import Http404
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
-    CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer
+    CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer
 from apps.orders.models import Order, OrderProduct
 
 
@@ -53,15 +52,24 @@ class OrderClientModelViewSet(ModelViewSet):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
-    # @swagger_auto_schema(method="post", request_body=NewOrderSerializer)
-    # @action(methods=['post'], detail=False)
-    # def create_order(self, request, *args, **kwargs):
-    #     self.serializer_class = NewOrderSerializer
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return Response({
-    #         "uz": "Muvaffaqiyatli yaratildi",
-    #         "en": "Successful Created",
-    #         "ru": "Успешно завершено"
-    #     })
+    @action(methods=['post'], detail=False)
+    def create_order(self, request, *args, **kwargs):
+        self.serializer_class = CreateOrderSerializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return {
+            "uz": "Muvaffaqiyatli yaratildi !!!",
+            "en": "Successfully Created !!!",
+            "ru": "Создано успешно !!!"
+        }
+
+    @action(methods=['delete'], detail=True)
+    def delete_order(self, request):
+        serializer = self.get_object()
+        serializer.delete()
+        return {
+            "uz": "Bekor qilindi !!",
+            "en": "Canceled !!",
+            "ru": "Отменено !!"
+        }
