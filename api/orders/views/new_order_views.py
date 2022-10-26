@@ -36,11 +36,11 @@ class OrderProductUpdateApiView(APIView):
         serializer = UpdateOrderProductSerializer(order_product, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return {
+        return Response({
             "uz": "Muoffaqiyatli O'zgartirildi !!",
             "en": "Changed Successfully !!",
             "ru": "Изменено успешно !!",
-        }
+        })
 
 
 class OrderClientModelViewSet(ModelViewSet):
@@ -58,18 +58,22 @@ class OrderClientModelViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return {
-            "uz": "Muvaffaqiyatli yaratildi !!!",
-            "en": "Successfully Created !!!",
-            "ru": "Создано успешно !!!"
-        }
+        return Response(
+            {
+                "uz": "Muvaffaqiyatli yaratildi !!!",
+                "en": "Successfully Created !!!",
+                "ru": "Создано успешно !!!"
+            }
+        )
 
     @action(methods=['delete'], detail=True)
     def delete_order(self, request):
         serializer = self.get_object()
         serializer.delete()
-        return {
-            "uz": "Bekor qilindi !!",
-            "en": "Canceled !!",
-            "ru": "Отменено !!"
-        }
+        return Response(
+            {
+                "uz": "Bekor qilindi !!",
+                "en": "Canceled !!",
+                "ru": "Отменено !!"
+            }
+        )
