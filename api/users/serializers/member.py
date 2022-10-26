@@ -2,7 +2,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.db import models
 from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import Serializer, ModelSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import serializers
 from apps.users.models import User, District
@@ -56,9 +56,19 @@ class UserCreateSerializer(serializers.ModelSerializer):
         phone_number = attrs.get('phone_number')
         password = attrs.get('password')
         if User.objects.filter(Q(phone_number=phone_number) & ~Q(role="unemployed")).exists():
-            raise ValidationError("Bunday ishchi boshqa korxonada ishlaydi bor !!!")
+            raise ValidationError(
+                {
+                    "uz": "Bunday ishchi  korxonada ishlaydi  !!!",
+                    "en": "Such an employee works in an enterprise !!",
+                    "ru": "Такой сотрудник работает на предприятии !!"
+                })
         if len(password) < 6:
-            raise ValidationError("Iltimos passwordni 6 ta belgidan ko'proq kiriting !!!")
+            raise ValidationError(
+                {
+                    "uz": "Iltimos passwordni 6 ta belgidan ko'proq kiriting !!!",
+                    "en": "Please enter password with more than 6 characters !!!",
+                    "ru": "Пожалуйста, введите пароль длиной более 6 символов !!!"
+                })
         return attrs
 
     @transaction.atomic
@@ -71,7 +81,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
             user.last_name = validated_data.get("last_name")
             user.date_of_birth = validated_data.get("date_of_birth")
             user.role = validated_data.get("role")
-            # user.date_of_birth = validated_data.get("date_of_birth")
             user.phone_number = validated_data.get("phone_number")
             user.save()
         else:
@@ -80,4 +89,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
             User.objects.create_user(
                 **validated_data
             )
-        return {"message": "Success"}
+        return {
+            "uz": "Muvaffaqiyatli yaratildi !!!",
+            "en": "Successfully Created !!!",
+            "ru": "Создано успешно !!!",
+        }
+
+
+class DistrictClassMemberSerializer(ModelSerializer):
+    class Meta:
+        model = District
+        fields = [
+            "id",
+            "name"
+        ]

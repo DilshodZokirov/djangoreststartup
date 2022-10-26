@@ -32,10 +32,11 @@ class RegistrationModelViewSet(ModelViewSet):
     @action(methods=['post'], detail=False)
     def register(self, request):
         serializer = RegistrationSerializer(data=request.data)
-        data: dict = {}
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            data['message'] = "Success"
-        else:
-            data = serializer.errors
-        return Response(data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {
+                "uz": "Muvaffaqiyatli ro'yxatdan o'tdingiz !!!",
+                "en": "You have successfully registered !!!",
+                "ru": "Вы успешно зарегистрированы !!!",
+            })

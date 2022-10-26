@@ -77,4 +77,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         else:
             validated_data['temporarily_unavailable'] = False
         Product.objects.create(**validated_data)
-        return {"success"}
+        return {
+            "uz": "Muvaffaqiyatli yaratildi !!!",
+            "en": "Successfully Created",
+            "ru": "Создано успешно"
+        }

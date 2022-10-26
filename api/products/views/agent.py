@@ -25,7 +25,13 @@ class ProductModelViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"message": "Successfully Created"})
+        return Response(
+            {
+                "uz": "Muvaffaqiyatli yaratildi !!!",
+                "en": "Successfully Created",
+                "ru": "Создано успешно"
+            }
+        )
 
     def list(self, request, *args, **kwargs):
         self.queryset = Product.objects.filter(temporarily_unavailable=True)

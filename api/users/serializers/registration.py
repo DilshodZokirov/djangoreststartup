@@ -54,15 +54,41 @@ class RegistrationSerializer(serializers.ModelSerializer):
         phone_number = attrs.get('phone_number')
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError(
-                "Bunaqa telefon nomerli inson bizda bor iltimos boshqa nomerdan foydalaning yoki login qismiga o'ting !!!")
+                {
+                    "uz": "Bunaqa telefon nomerli inson bizda bor iltimos boshqa nomerdan foydalaning yoki login qismiga o'ting !!!",
+                    "en": "We have a person with such a phone number, please use another number or go to the login section !!!",
+                    "ru": "У нас есть человек с таким номером телефона, пожалуйста используйте другой номер или зайдите в раздел авторизации!!!"
+
+                })
         if 10 >= len(phone_number) >= 12:
-            raise ValidationError("Iltimos telefon nomerni to'g'ri kiriting !!!")
+            raise ValidationError(
+                {
+                    "uz": "Iltimos telefon nomerni to'g'ri kiriting !!!",
+                    "en": "Please enter the correct phone number !!!",
+                    "ru": "Пожалуйста, введите правильный номер телефона !!!"
+                })
         if attrs.get('password') != attrs.get("password2"):
-            raise ValidationError("Iltimos parolni to'g'ri kiriting !!!")
+            raise ValidationError(
+                {
+                    "uz": "Iltimos parolni to'g'ri kiriting !!!",
+                    "en": "Please enter the correct password !!!",
+                    "ru": "Пожалуйста, введите правильный пароль!!!"
+                })
         if User.objects.filter(phone_number=phone_number).exists():
-            raise ValidationError("Bunaqa inson bizning ro'yxatda bor")
+            raise ValidationError(
+                {
+                    "uz": "Bunaqa inson bizning ro'yxatda bor",
+                    "en": "Such a person is on our list",
+                    "ru": "Такой человек есть в нашем списке"
+                })
         if Company.objects.filter(name=attrs.get("company")).exists():
-            raise ValidationError("Bunday Company bizda bor iltimos boshqa nom qo'ying !!!")
+            raise ValidationError(
+                {
+                    "uz": "Bunday korxona bizda bor iltimos boshqa nom qo'ying !!!",
+                    "en": "We have such a company, please give it another name!!!",
+                    "ru": "У нас есть такая компания, дайте ей другое название!!!"
+                }
+            )
         return attrs
 
     @transaction.atomic

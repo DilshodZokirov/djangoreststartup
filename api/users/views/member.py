@@ -6,9 +6,10 @@ from rest_framework.filters import SearchFilter
 from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from api.users.serializers.member import UserCreateSerializer, GetAllSerializer
-from apps.users.models import User
+from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer
+from apps.users.models import User, District
 from distributive.permissions import IsDirector
 
 
@@ -35,3 +36,10 @@ class WorkerModelViewSet(ModelViewSet):
         return Response(
             {"message": "Successfully Created"}
         )
+
+
+class DistrictApiView(APIView):
+    def get(self, request, format=None):
+        queryset = District.objects.all()
+        serializer = DistrictClassMemberSerializer(queryset, many=True)
+        return Response(serializer.data)
