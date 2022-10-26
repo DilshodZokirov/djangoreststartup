@@ -83,6 +83,7 @@ class CreateOrderSerializer(ModelSerializer):
         model = Order
         fields = [
             "id"
+            "seller"
         ]
 
     def create(self, validated_data):
