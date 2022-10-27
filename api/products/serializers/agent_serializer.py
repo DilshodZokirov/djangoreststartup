@@ -48,6 +48,16 @@ class DetailProductSerializer(Serializer):
         ]
 
 
+class UpdateProductClassSerializer(serializers.ModelSerializer):
+    size = serializers.CharField(required=False)
+
+    class Meta:
+        model = Product
+        fields = [
+            "size"
+        ]
+
+
 class ProductCreateSerializer(serializers.ModelSerializer):
     pictures = serializers.FileField(required=False)
     name = serializers.CharField(required=False)

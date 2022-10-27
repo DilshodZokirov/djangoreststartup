@@ -53,7 +53,8 @@ class OrderClassesSerializer(Serializer):
             "pharmacy_name",
             "customer_name",
             "seller",
-            "phone_number"
+            "phone_number",
+            "created-date",
         ]
 
 

@@ -29,6 +29,43 @@ class GetAllSerializer(Serializer):
         ]
 
 
+class DistrictUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = [
+            "name"
+        ]
+
+
+class DetailUserCompanySerializer(serializers.ModelSerializer):
+    district = DistrictUserSerializer()
+
+    class Meta:
+        model = User
+        fields = [
+            "district",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "role",
+            "email",
+            "date_joined"
+        ]
+
+
+class MemberAllSerializer(serializers.ModelSerializer):
+    district = DistrictUserSerializer()
+
+    class Meta:
+        model = User
+        fields = [
+            "district",
+            "first_name",
+            "last_name",
+            "phone_number"
+        ]
+
+
 class UserCreateSerializer(serializers.ModelSerializer):
     profile_pic = serializers.FileField(required=False)
     district = serializers.PrimaryKeyRelatedField(queryset=District.objects.all())

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from api.products.serializers.agent_serializer import AgentProductSerializer, ProductCreateSerializer, \
-    DetailProductSerializer
+    DetailProductSerializer, UpdateProductClassSerializer
 from apps.product.models import Product
 
 
@@ -36,6 +36,10 @@ class ProductModelViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         self.queryset = Product.objects.filter(temporarily_unavailable=True)
         return super(ProductModelViewSet, self).list(request, *args, **kwargs)
+
+    def partial_update(self, request, *args, **kwargs):
+        self.serializer_class = UpdateProductClassSerializer
+        return super(ProductModelViewSet, self).partial_update(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailProductSerializer

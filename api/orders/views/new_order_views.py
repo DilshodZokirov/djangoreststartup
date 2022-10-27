@@ -66,14 +66,5 @@ class OrderClientModelViewSet(ModelViewSet):
             }
         )
 
-    @action(methods=['delete'], detail=True)
-    def delete_order(self, request):
-        serializer = self.get_object()
-        serializer.delete()
-        return Response(
-            {
-                "uz": "Bekor qilindi !!",
-                "en": "Canceled !!",
-                "ru": "Отменено !!"
-            }
-        )
+    def destroy(self, request, *args, **kwargs):
+        return super(OrderClientModelViewSet, self).destroy(request, *args, **kwargs)

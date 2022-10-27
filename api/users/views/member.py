@@ -8,8 +8,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer
-from apps.users.models import User, District
+from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer, \
+    MemberAllSerializer, DetailUserCompanySerializer
+from apps.users.models import User, District, Company
 from distributive.permissions import IsDirector
 
 
@@ -21,12 +22,6 @@ class WorkerModelViewSet(ModelViewSet):
     serializer_class = GetAllSerializer
     filter_backends = (SearchFilter,)
 
-    # @action(methods=["post"], detail=False)
-    # def create_district(self, request):
-    #     self.serializer_class =
-
-    # @swagger_auto_schema(method="post", request_body=UserCreateSerializer,
-    #                      responses={200: "Successfully Created", 400: "Bad Request"})
     @action(methods=["post"], detail=False)
     def create_worker(self, request, *args, **kwargs):
         self.serializer_class = UserCreateSerializer
@@ -36,6 +31,15 @@ class WorkerModelViewSet(ModelViewSet):
         return Response(
             {"message": "Successfully Created"}
         )
+
+    def list(self, request, *args, **kwargs):
+        self.queryset = User.objects.filter(company=request.user.company)
+        self.serializer_class = MemberAllSerializer
+        return super(WorkerModelViewSet, self).list(request, *args, **kwargs)
+
+    def retrieve(self, request, *args, **kwargs):
+        self.serializer_class = DetailUserCompanySerializer
+        return super(WorkerModelViewSet, self).retrieve(request, *args, **kwargs)
 
 
 class DistrictApiView(APIView):
