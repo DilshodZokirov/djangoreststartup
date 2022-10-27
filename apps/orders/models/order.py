@@ -28,8 +28,8 @@ class Order(BaseModel):
     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
     comment = models.CharField(max_length=500, null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.customer_name
+    def __str__(self):
+        return self.customer_name
 
 
 class OrderProduct(BaseModel):
