@@ -89,7 +89,7 @@ class CreateOrderSerializer(Serializer):
     def create(self, validated_data):
         seller = self.context['request'].user.id
         order = Order.objects.create(
-            seller=seller
+            seller_id=seller
         )
         order.save()
         return {"success"}
