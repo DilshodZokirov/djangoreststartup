@@ -6,24 +6,7 @@ from apps.product.models import Product
 from apps.users.models import User
 
 
-#     username = models.CharField(max_length=500, null=True, blank=True)
-#     phone_number = models.CharField(max_length=13, unique=True)
-#     company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
-#     first_name = models.CharField(max_length=400, null=True, blank=True)
-#     email = models.EmailField(null=True, blank=True)
-#     last_name = models.CharField(max_length=400, null=True)
-#     date_joined = models.DateTimeField(default=timezone.now)
-#     district = models.ForeignKey(District, on_delete=models.PROTECT, null=True, blank=True,
-#                                  related_name="district_user")
-#     profile_pic = models.FileField(upload_to='user/profile', null=True, blank=True)
-#     is_active = models.BooleanField(default=True)
-#     is_staff = models.BooleanField(default=True)
-#     is_director = models.BooleanField(default=False)
-#     date_of_birth = models.DateField(null=True, blank=True)
-#     role = models.CharField(max_length=400, choices=TYPE.choices, default=TYPE.DELIVERY, null=True)
-#     is_deleted = models.BooleanField(default=False, null=True, blank=True)
-
-class SellerClassesSerializer(Serializer):
+class SellerClassesSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = [
@@ -35,7 +18,7 @@ class SellerClassesSerializer(Serializer):
         ]
 
 
-class GetOneOrderSerializer(Serializer):
+class GetOneOrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = [
@@ -44,7 +27,7 @@ class GetOneOrderSerializer(Serializer):
         ]
 
 
-class OrderClassesSerializer(Serializer):
+class OrderClassesSerializer(ModelSerializer):
     seller = SellerClassesSerializer()
 
     class Meta:
@@ -79,7 +62,7 @@ class OrderClassesSerializer(Serializer):
 #
 
 # Order Product Serializers
-class CreateOrderSerializer(Serializer):
+class CreateOrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = [
@@ -95,7 +78,7 @@ class CreateOrderSerializer(Serializer):
         return {"success"}
 
 
-class CreateOrderProductSerializer(serializers.Serializer):
+class CreateOrderProductSerializer(ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.filter(is_deleted=False))
     order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.filter(is_deleted=False))
 
@@ -108,7 +91,7 @@ class CreateOrderProductSerializer(serializers.Serializer):
         ]
 
 
-class UpdateOrderProductSerializer(serializers.Serializer):
+class UpdateOrderProductSerializer(ModelSerializer):
     class Meta:
         model = OrderProduct
         fields = [
@@ -117,15 +100,6 @@ class UpdateOrderProductSerializer(serializers.Serializer):
         ]
 
 
-#     pharmacy_name = models.CharField(max_length=30, null=True, blank=True)
-#     customer_name = models.CharField(max_length=300, null=True, blank=True)
-#     seller = models.ForeignKey(User, on_delete=models.PROTECT, related_name='order_seller', null=True, blank=True)
-#     phone_number = models.CharField(max_length=50, null=True, blank=True)
-#     paid_price = models.FloatField(null=True, blank=True, default=0)
-#     total_price = models.FloatField(null=True, blank=True, default=0)
-#     paid_position = models.CharField(max_length=30, choices=MoneyPaid.choices, default=MoneyPaid.NOT_PAID)
-#     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
-#     comment = models.CharField(max_length=500, null=True, blank=True)
 class UpdateOrderSerializer(ModelSerializer):
     pharmacy_name = serializers.CharField(required=False, max_length=70)
     customer_name = serializers.CharField(required=False, max_length=80)
@@ -155,4 +129,6 @@ class UpdateOrderSerializer(ModelSerializer):
         instance.total_price = summa
         instance.comment = validated_data.get("comment")
         instance.save()
-        return {"success"}
+        return {
+            "success"
+        }
