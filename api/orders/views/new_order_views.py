@@ -55,10 +55,10 @@ class OrderClientModelViewSet(ModelViewSet):
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
     @action(methods=['get'], detail=True)
-    def detail(self, request, pk=None, *args, **kwargs):
-        query = get_object_or_404(self.queryset, pk=pk)
-        serializer = DetailOrderSerializer(query)
-        # serializer = self.get_serializer(query)
+    def detail(self, request, pk, *args, **kwargs):
+        self.serializer_class = DetailOrderSerializer
+        query = self.get_object()
+        serializer = self.get_serializer(query)
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
