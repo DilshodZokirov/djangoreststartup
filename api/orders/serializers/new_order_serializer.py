@@ -26,6 +26,14 @@ class GetOneOrderSerializer(ModelSerializer):
         ]
 
 
+class DetailOrderSerializer(ModelSerializer):
+    class Meta:
+        model = Order
+        fields = [
+            "__all__"
+        ]
+
+
 class OrderClassesSerializer(ModelSerializer):
     seller = SellerClassesSerializer()
 

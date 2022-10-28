@@ -7,7 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
     CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer, \
-    UpdateOrderSerializer
+    UpdateOrderSerializer, DetailOrderSerializer
 from apps.orders.models import Order, OrderProduct
 
 
@@ -52,6 +52,12 @@ class OrderClientModelViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
+
+    @action(methods=['get'], detail=True)
+    def detail(self, request, *args, **kwargs):
+        query = self.get_object()
+        serializer = DetailOrderSerializer(query)
+        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
         self.serializer_class = CreateOrderSerializer
