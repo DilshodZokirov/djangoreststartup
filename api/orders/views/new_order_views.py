@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -54,9 +55,10 @@ class OrderClientModelViewSet(ModelViewSet):
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
     @action(methods=['get'], detail=True)
-    def detail(self, request, *args, **kwargs):
-        query = self.get_object()
+    def detail(self, request, pk=None, *args, **kwargs):
+        query = get_object_or_404(self.queryset, pk=pk)
         serializer = DetailOrderSerializer(query)
+        # serializer = self.get_serializer(query)
         return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
