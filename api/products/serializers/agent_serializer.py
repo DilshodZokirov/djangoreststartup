@@ -71,7 +71,6 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         fields = [
             'pictures',
             'name',
-            'category',
             'price1',
             'price2',
             'compound',
