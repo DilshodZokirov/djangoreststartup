@@ -32,6 +32,7 @@ class OrderClassesSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = [
+            "id",
             "pharmacy_name",
             "customer_name",
             "seller",
