@@ -14,7 +14,7 @@ choices = (
 )
 
 
-class GetAllSerializer(Serializer):
+class GetAllSerializer(ModelSerializer):
     class Meta:
         fields = [
             'district',

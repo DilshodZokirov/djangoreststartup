@@ -1,6 +1,6 @@
 from django.db import transaction
 from rest_framework import serializers
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import Serializer, ModelSerializer
 
 from apps.product.models import Product
 
@@ -14,7 +14,7 @@ from apps.product.models import Product
 #     expiration_date = models.DateTimeField()
 #     count = models.IntegerField(null=True, blank=True)
 #     count_of_product = models.IntegerField(null=True, blank=True)
-class AgentProductSerializer(Serializer):
+class AgentProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = [
@@ -31,7 +31,7 @@ class AgentProductSerializer(Serializer):
         ]
 
 
-class DetailProductSerializer(Serializer):
+class DetailProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = [
