@@ -53,8 +53,7 @@ class OrderClientModelViewSet(ModelViewSet):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
-    @action(methods=['post'], detail=False)
-    def create_order(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         self.serializer_class = CreateOrderSerializer
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
