@@ -22,7 +22,7 @@ class GetOneOrderSerializer(ModelSerializer):
         model = Order
         fields = [
             "order_position",
-            "pharmacy"
+            "pharmacy_name"
         ]
 
 
