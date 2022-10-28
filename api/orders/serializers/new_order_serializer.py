@@ -37,7 +37,7 @@ class OrderClassesSerializer(ModelSerializer):
             "customer_name",
             "seller",
             "phone_number",
-            "created-date",
+            "created_date",
         ]
 
 
