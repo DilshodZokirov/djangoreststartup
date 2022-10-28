@@ -16,6 +16,7 @@ choices = (
 
 class GetAllSerializer(ModelSerializer):
     class Meta:
+        model = User
         fields = [
             'district',
             'profile_pic',
