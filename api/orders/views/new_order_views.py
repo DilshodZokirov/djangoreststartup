@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
-    CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer
+    CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer, \
+    UpdateOrderSerializer
 from apps.orders.models import Order, OrderProduct
 
 
@@ -68,3 +69,7 @@ class OrderClientModelViewSet(ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         return super(OrderClientModelViewSet, self).destroy(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        self.serializer_class = UpdateOrderSerializer
+        return super(OrderClientModelViewSet, self).update(request, *args, **kwargs)

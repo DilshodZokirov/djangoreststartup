@@ -115,3 +115,44 @@ class UpdateOrderProductSerializer(serializers.Serializer):
             "order",
             "product"
         ]
+
+
+#     pharmacy_name = models.CharField(max_length=30, null=True, blank=True)
+#     customer_name = models.CharField(max_length=300, null=True, blank=True)
+#     seller = models.ForeignKey(User, on_delete=models.PROTECT, related_name='order_seller', null=True, blank=True)
+#     phone_number = models.CharField(max_length=50, null=True, blank=True)
+#     paid_price = models.FloatField(null=True, blank=True, default=0)
+#     total_price = models.FloatField(null=True, blank=True, default=0)
+#     paid_position = models.CharField(max_length=30, choices=MoneyPaid.choices, default=MoneyPaid.NOT_PAID)
+#     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
+#     comment = models.CharField(max_length=500, null=True, blank=True)
+class UpdateOrderSerializer(ModelSerializer):
+    pharmacy_name = serializers.CharField(required=False, max_length=70)
+    customer_name = serializers.CharField(required=False, max_length=80)
+    phone_number = serializers.CharField(required=False, max_length=40)
+    comment = serializers.CharField()
+
+    class Meta:
+        model = Order
+        fields = [
+            "pharmacy_name",
+            "customer_name",
+            "phone_number",
+            "comment",
+        ]
+
+    def update(self, instance: Order, validated_data: dict):
+        summa = 0
+        order_id = instance.pk
+        order_product = OrderProduct.objects.filter(order_id=order_id)
+        for op in order_product:
+            summa += op.price
+        instance.seller = self.context['request'].user
+        instance.customer_name = validated_data.get('customer_name')
+        instance.phone_number = validated_data.get('phone_number')
+        instance.comment = validated_data.get("comment")
+        instance.pharmacy_name = validated_data.get("pharmacy_name")
+        instance.total_price = summa
+        instance.comment = validated_data.get("comment")
+        instance.save()
+        return {"success"}
