@@ -20,6 +20,8 @@ class UserMoveApiView(APIView):
             }
         )
 
+
+class UserGetMoveDetail(APIView):
     def get(self, request, pk=None):
         queryset = UserMove.objects.filter(user=pk, created_date__day=datetime.day)
         serializer = UserMoveListSerializer(queryset, many=True)

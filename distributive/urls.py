@@ -52,6 +52,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(f'{version}/users/', include('api.users.urls')),
     path(f'{version}/member/', include('api.users.urls2')),
+    path(f'{version}/move/', include('api.users.url3')),
     path(f'{version}/product/', include('api.products.urls')),
     path(f'{version}/orders/', include('api.orders.urls'))
 
