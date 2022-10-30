@@ -3,8 +3,8 @@ from datetime import datetime
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.users.serializers.move import UserMoveSerializer, UserMoveListSerializer
-from apps.users.models import UserMove
+from api.users.serializers.move import UserMoveSerializer, UserMoveListSerializer, RequestUserSerializer
+from apps.users.models import UserMove, User
 
 
 class UserMoveApiView(APIView):
@@ -20,7 +20,7 @@ class UserMoveApiView(APIView):
             }
         )
 
-    def get(self, request):
-        queryset = UserMove.objects.filter(user=request.user, created_date__day=datetime.day)
+    def get(self, request, pk=None):
+        queryset = UserMove.objects.filter(user=pk, created_date__day=datetime.day)
         serializer = UserMoveListSerializer(queryset, many=True)
         return Response(serializer.data)

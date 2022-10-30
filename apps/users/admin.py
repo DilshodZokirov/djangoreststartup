@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 
 from apps.users.forms import CustomUserCreationForm, CustomUserChangeForm
-from apps.users.models import District, User
+from apps.users.models import District, User, UserMove
 
 
 class CustomUserAdmin(UserAdmin):
@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('phone_number',)
     fieldsets = (
         (None, {'fields': (
-            'phone_number',  'password', 'first_name', 'last_name', 'role', 'district', 'company')}),
+            'phone_number', 'password', 'first_name', 'last_name', 'role', 'district', 'company')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', "is_director")}),
     )
     add_fieldsets = (
@@ -36,3 +36,8 @@ admin.site.register(User, CustomUserAdmin)
 @admin.register(District)
 class AdminDistrict(ModelAdmin):
     list_display = ['id', 'name']
+
+
+@admin.register(UserMove)
+class AdminUserMove(ModelAdmin):
+    list_display = ['id', 'lon', "lot", "user"]

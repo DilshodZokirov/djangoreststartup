@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
@@ -24,6 +26,8 @@ class UserMoveSerializer(ModelSerializer):
 
 
 class RequestUserSerializer(ModelSerializer):
+    # user_move = UserMoveListSerializer(many=True)
+
     class Meta:
         model = User
         fields = [
@@ -35,10 +39,13 @@ class RequestUserSerializer(ModelSerializer):
 
 
 class UserMoveListSerializer(ModelSerializer):
+    user = RequestUserSerializer()
+
     class Meta:
         model = UserMove
         fields = [
+            "id",
             "lon",
             "lot",
-            "user"
+            'user'
         ]
