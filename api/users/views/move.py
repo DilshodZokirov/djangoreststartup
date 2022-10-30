@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,6 +9,8 @@ from apps.users.models import UserMove, User
 
 
 class UserMoveApiView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request, *args, **kwargs):
         serializer = UserMoveSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

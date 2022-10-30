@@ -8,6 +8,6 @@ from .views.member import WorkerModelViewSet
 # router = DefaultRouter()
 # router.register("registration", RegistrationModelViewSet)
 urlpatterns = [
-    path("/", UserMoveApiView.as_view()),
+    path("", UserMoveApiView.as_view()),
     path("<id>/", UserGetMoveDetail.as_view())
 ]

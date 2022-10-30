@@ -15,7 +15,6 @@ class UserMoveSerializer(ModelSerializer):
         fields = [
             "lon",
             "lot",
-            "user"
         ]
 
     def create(self, validated_data: dict):
