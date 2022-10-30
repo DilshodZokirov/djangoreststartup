@@ -76,3 +76,12 @@ class Company(BaseModel):
 
     def __str__(self):
         return f"{self.name} - {self.description}"
+
+
+class UserMove(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_move")
+    lon = models.CharField(max_length=400)
+    lot = models.CharField(max_length=400)
+
+    def __str__(self):
+        return f"{self.user.first_name}{self.user.last_name}"
