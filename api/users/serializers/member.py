@@ -59,6 +59,7 @@ class MemberAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
+            'id',
             "district",
             "first_name",
             "last_name",
