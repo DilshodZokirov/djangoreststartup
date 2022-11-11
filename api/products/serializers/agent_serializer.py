@@ -20,7 +20,7 @@ class AgentProductSerializer(ModelSerializer):
         fields = [
             "name",
             "price1",
-            "price1",
+            "price2",
             "compound",
             'temporarily_unavailable',
             'pictures',
