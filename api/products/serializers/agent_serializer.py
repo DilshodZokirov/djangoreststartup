@@ -18,6 +18,7 @@ class AgentProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'id',
             "name",
             "price1",
             "price2",

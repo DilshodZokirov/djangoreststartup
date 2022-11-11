@@ -31,18 +31,18 @@ class ProductModelViewSet(ModelViewSet):
                     "uz": "Muvaffaqiyatli yaratildi",
                     "en": "Successfully Created",
                     "ru": "Создано успешно"
-                }
-            }
+                }}
+
         )
 
-    def list(self, request, *args, **kwargs):
-        self.queryset = Product.objects.filter(temporarily_unavailable=True)
-        return super(ProductModelViewSet, self).list(request, *args, **kwargs)
+        def list(self, request, *args, **kwargs):
+            self.queryset = Product.objects.filter(temporarily_unavailable=True)
+            return super(ProductModelViewSet, self).list(request, *args, **kwargs)
 
-    def partial_update(self, request, *args, **kwargs):
-        self.serializer_class = UpdateProductClassSerializer
-        return super(ProductModelViewSet, self).partial_update(request, *args, **kwargs)
+        def partial_update(self, request, *args, **kwargs):
+            self.serializer_class = UpdateProductClassSerializer
+            return super(ProductModelViewSet, self).partial_update(request, *args, **kwargs)
 
-    def retrieve(self, request, *args, **kwargs):
-        self.serializer_class = DetailProductSerializer
-        return super(ProductModelViewSet, self).retrieve(request, *args, **kwargs)
+        def retrieve(self, request, *args, **kwargs):
+            self.serializer_class = DetailProductSerializer
+            return super(ProductModelViewSet, self).retrieve(request, *args, **kwargs)
