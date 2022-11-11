@@ -65,6 +65,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
     price2 = serializers.FloatField(required=False)
     compound = serializers.CharField(required=False)
     expiration_date = serializers.DateTimeField(required=True)
+    count = serializers.FloatField(required=False)
+    count_of_product = serializers.FloatField(required=False)
 
     class Meta:
         model = Product
@@ -76,6 +78,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'compound',
             'expiration_date',
             'temporarily_unavailable',
+            'count',
+            'count_of_product'
         ]
 
     @transaction.atomic
