@@ -37,6 +37,9 @@ class WorkerModelViewSet(ModelViewSet):
         self.serializer_class = MemberAllSerializer
         return super(WorkerModelViewSet, self).list(request, *args, **kwargs)
 
+    def put(self, request, *args, **kwargs):
+        self.serializer_class = MemberUpdateSerializer
+
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailUserCompanySerializer
         return super(WorkerModelViewSet, self).retrieve(request, *args, **kwargs)

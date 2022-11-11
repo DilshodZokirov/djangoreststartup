@@ -53,6 +53,30 @@ class DetailUserCompanySerializer(serializers.ModelSerializer):
         ]
 
 
+class MemberUpdateSerializer(serializers.ModelSerializer):
+    profile_pic = serializers.FileField(required=False)
+    district = serializers.PrimaryKeyRelatedField(queryset=District.objects.all())
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    date_of_birth = serializers.DateField(required=False)
+    phone_number = serializers.CharField(required=False)
+    password = serializers.CharField(required=False)
+    role = serializers.ChoiceField(required=False, choices=choices, default="DELIVERY")
+
+    class Meta:
+        model = User
+        fields = [
+            'district',
+            'profile_pic',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+            'phone_number',
+            'role',
+            'password',
+        ]
+
+
 class MemberAllSerializer(serializers.ModelSerializer):
     district = DistrictUserSerializer()
 
