@@ -28,7 +28,7 @@ class ProductModelViewSet(ModelViewSet):
         return Response(
             {
                 "message": {
-                    "uz": "Muvaffaqiyatli yaratildi !!!",
+                    "uz": "Muvaffaqiyatli yaratildi",
                     "en": "Successfully Created",
                     "ru": "Создано успешно"
                 }

@@ -49,11 +49,28 @@ class DetailProductSerializer(ModelSerializer):
 
 
 class UpdateProductClassSerializer(serializers.ModelSerializer):
+    pictures = serializers.FileField(required=False)
+    name = serializers.CharField(required=False)
+    price1 = serializers.FloatField(required=False)
+    price2 = serializers.FloatField(required=False)
+    compound = serializers.CharField(required=False)
+    expiration_date = serializers.DateTimeField(required=True)
+    count = serializers.FloatField(required=False)
+    count_of_product = serializers.FloatField(required=False)
     size = serializers.CharField(required=False)
 
     class Meta:
         model = Product
         fields = [
+            'pictures',
+            'name',
+            'price1',
+            'price2',
+            'compound',
+            'expiration_date',
+            'temporarily_unavailable',
+            'count',
+            'count_of_product',
             "size"
         ]
 
