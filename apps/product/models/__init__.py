@@ -1,10 +1,11 @@
 from django.db import models
 from distributive.models import BaseModel
-from apps.users.models import Company
+from apps.users.models import Company, User
 
 
 class Product(BaseModel):
     name = models.CharField(max_length=300)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_product", null=True, blank=True)
     price1 = models.FloatField(null=True, blank=True)
     price2 = models.FloatField(null=True, blank=True)
     compound = models.CharField(max_length=5000, null=True)
