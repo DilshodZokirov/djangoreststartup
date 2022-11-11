@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer, \
-    MemberAllSerializer, DetailUserCompanySerializer
+    MemberAllSerializer, DetailUserCompanySerializer, MemberUpdateSerializer
 from apps.users.models import User, District, Company
 from distributive.permissions import IsDirector
 
@@ -39,6 +39,7 @@ class WorkerModelViewSet(ModelViewSet):
 
     def put(self, request, *args, **kwargs):
         self.serializer_class = MemberUpdateSerializer
+        return super(WorkerModelViewSet, self).put(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailUserCompanySerializer
