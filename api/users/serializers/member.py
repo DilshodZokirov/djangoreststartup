@@ -61,7 +61,7 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
     date_of_birth = serializers.DateField(required=False)
     phone_number = serializers.CharField(required=False)
     password = serializers.CharField(required=False)
-    role = serializers.ChoiceField(required=False, choices=choices, default="DELIVERY")
+    role = serializers.ChoiceField(required=False)
 
     class Meta:
         model = User
@@ -75,6 +75,14 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
             'role',
             'password',
         ]
+
+    def update(self, instance, validated_data):
+        instance.save()
+        return {"message": {
+            "uz": "muoffaqiyatli o'zgartirildi",
+            "en": "Successfully update",
+            "ru": "Создано успешно"
+        }}
 
 
 class MemberAllSerializer(serializers.ModelSerializer):
