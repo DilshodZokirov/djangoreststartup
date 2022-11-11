@@ -27,9 +27,11 @@ class ProductModelViewSet(ModelViewSet):
         serializer.save()
         return Response(
             {
-                "uz": "Muvaffaqiyatli yaratildi !!!",
-                "en": "Successfully Created",
-                "ru": "Создано успешно"
+                "message": {
+                    "uz": "Muvaffaqiyatli yaratildi !!!",
+                    "en": "Successfully Created",
+                    "ru": "Создано успешно"
+                }
             }
         )
 
