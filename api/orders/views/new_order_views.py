@@ -67,11 +67,11 @@ class OrderClientModelViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
-            {
+            {"message": {
                 "uz": "Muvaffaqiyatli yaratildi",
                 "en": "Successfully Created",
                 "ru": "Изменено успешно"
-            }
+            }}
         )
 
     def destroy(self, request, *args, **kwargs):

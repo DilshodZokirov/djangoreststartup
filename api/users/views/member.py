@@ -29,7 +29,15 @@ class WorkerModelViewSet(ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         self.serializer_class = MemberUpdateSerializer
-        return super(WorkerModelViewSet, self).partial_update(request, *args, **kwargs)
+        serializer = self.get_serializer(self.get_object(), data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": {
+            "uz": "Muoffaqiyatli O'zgartirildi",
+            "en": "Successfully Updated",
+            "ru": "Изменено успешно"
+
+        }})
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailUserCompanySerializer
