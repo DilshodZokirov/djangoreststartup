@@ -87,7 +87,21 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
 
 class MemberAllSerializer(serializers.ModelSerializer):
     district = DistrictUserSerializer()
-
+    # phone_number = models.CharField(max_length=13, unique=True)
+    # company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
+    # first_name = models.CharField(max_length=400, null=True, blank=True)
+    # email = models.EmailField(null=True, blank=True)
+    # last_name = models.CharField(max_length=400, null=True)
+    # date_joined = models.DateTimeField(default=timezone.now)
+    # district = models.ForeignKey(District, on_delete=models.PROTECT, null=True, blank=True,
+    #                              related_name="district_user")
+    # profile_pic = models.FileField(upload_to='user/profile', null=True, blank=True)
+    # is_active = models.BooleanField(default=True)
+    # is_staff = models.BooleanField(default=True)
+    # is_director = models.BooleanField(default=False)
+    # date_of_birth = models.DateField(null=True, blank=True)
+    # role = models.CharField(max_length=400, choices=TYPE.choices, default=TYPE.DELIVERY, null=True)
+    # is_deleted = models.BooleanField(default=False, null=True, blank=True)
     class Meta:
         model = User
         fields = [
@@ -95,7 +109,10 @@ class MemberAllSerializer(serializers.ModelSerializer):
             "district",
             "first_name",
             "last_name",
-            "phone_number"
+            "phone_number",
+            'profile_pic',
+            'role',
+            'date_of_birth'
         ]
 
 
@@ -128,16 +145,16 @@ class UserCreateSerializer(serializers.ModelSerializer):
         if User.objects.filter(Q(phone_number=phone_number) & ~Q(role="unemployed")).exists():
             raise ValidationError(
                 {
-                    "uz": "Bunday ishchi  korxonada ishlaydi  !!!",
-                    "en": "Such an employee works in an enterprise !!",
-                    "ru": "Такой сотрудник работает на предприятии !!"
+                    "uz": "Bunday ishchi  korxonada ishlaydi ",
+                    "en": "Such an employee works in an enterprise ",
+                    "ru": "Такой сотрудник работает на предприятии"
                 })
         if len(password) < 6:
             raise ValidationError(
                 {
-                    "uz": "Iltimos passwordni 6 ta belgidan ko'proq kiriting !!!",
-                    "en": "Please enter password with more than 6 characters !!!",
-                    "ru": "Пожалуйста, введите пароль длиной более 6 символов !!!"
+                    "uz": "Iltimos passwordni 6 ta belgidan ko'proq kiriting ",
+                    "en": "Please enter password with more than 6 characters",
+                    "ru": "Пожалуйста, введите пароль длиной более 6 символов"
                 })
         return attrs
 
