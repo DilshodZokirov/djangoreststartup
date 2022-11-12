@@ -79,6 +79,70 @@ class OrderClassesSerializer(ModelSerializer):
 #
 
 # Order Product Serializers
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "name",
+            "count_of_product",
+            "size",
+            "count"
+        ]
+
+
+# class GroupCreateSerializer(ModelSerializer):
+#      memberships = GroupMembershipSerializer(many=True, required=False)
+#
+#
+#
+#
+class OrderProductSerializer(ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = OrderProduct
+        fields = [
+            "product",
+            "count",
+            'price'
+        ]
+
+
+class NewOrderCreateSerializer(ModelSerializer):
+    order_products = OrderProductSerializer(many=True, required=False)
+
+    def create(self, validated_data):
+        order_data = validated_data.pop('order_products')
+        order = Order.objects.create(**validated_data)
+        for person in order_data:
+            d = dict(person)
+            OrderProduct.objects.create(order=order, product=d.get('product'), count=d.get('count'),
+                                        price=d.get('price'))
+        return order
+
+    def update(self, instance, validated_data):
+        order_data = validated_data.pop('order_products')
+        for item in validated_data:
+            if Order._meta.get_field(item):
+                setattr(instance, item, validated_data[item])
+        OrderProduct.objects.filter(order=instance).delete()
+        for person in order_data:
+            d = dict(person)
+            OrderProduct.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
+                                        price=d.get('price'))
+        instance.save()
+        return instance
+
+    class Meta:
+        model = Order
+        fields = ["__all__"]
+
+
+class Meta:
+    pass
+
+
 class CreateOrderSerializer(ModelSerializer):
     class Meta:
         model = Order
