@@ -17,10 +17,11 @@ class UserMoveApiView(APIView):
         serializer.save()
         return Response(
             {
-                "uz": "Joylashuv aniqlandi",
-                "en": "The location has been determined",
-                "ru": "Место было определено"
-            }
+                "message": {
+                    "uz": "Joylashuv aniqlandi",
+                    "en": "The location has been determined",
+                    "ru": "Место было определено"
+                }}
         )
 
 

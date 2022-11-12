@@ -61,19 +61,6 @@ class OrderClientModelViewSet(ModelViewSet):
         serializer = self.get_serializer(query)
         return Response(serializer.data)
 
-    def create(self, request, *args, **kwargs):
-        self.serializer_class = CreateOrderSerializer
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(
-            {
-                "uz": "Muvaffaqiyatli yaratildi",
-                "en": "Successfully Created",
-                "ru": "Изменено успешно"
-            }
-        )
-
     def destroy(self, request, *args, **kwargs):
         return super(OrderClientModelViewSet, self).destroy(request, *args, **kwargs)
 
@@ -87,3 +74,16 @@ class OrderClientModelViewSet(ModelViewSet):
             "en": "Successfully Updated",
             "ru": "Создано успешно"
         }})
+
+    def create(self, request, *args, **kwargs):
+        self.serializer_class = CreateOrderSerializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": {
+                "uz": "Muvaffaqiyatli yaratildi",
+                "en": "Successfully Created",
+                "ru": "Изменено успешно"
+            }}
+        )

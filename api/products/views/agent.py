@@ -14,7 +14,7 @@ from apps.product.models import Product
 class ProductModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, ]
     authentication_classes = [TokenAuthentication, ]
-    queryset = Product.objects.all().order_by('-id')
+    queryset = Product.objects.all()
     serializer_class = AgentProductSerializer
     parser_classes = (MultiPartParser, FileUploadParser)
     filter_backends = (SearchFilter,)
@@ -28,11 +28,12 @@ class ProductModelViewSet(ModelViewSet):
         serializer = self.get_serializer(self.get_object(), data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"message": {
-            "uz": "Muoffaqiyatli o'zgartirildi",
-            "en": "Successfully Updated",
-            "ru": "Создано успешно"
-        }})
+        return Response({
+            "message": {
+                "uz": "Muoffaqiyatli o'zgartirildi",
+                "en": "Successfully Updated",
+                "ru": "Изменено успешно"
+            }})
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailProductSerializer
