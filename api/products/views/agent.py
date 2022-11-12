@@ -14,7 +14,7 @@ from apps.product.models import Product
 class ProductModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, ]
     authentication_classes = [TokenAuthentication, ]
-    queryset = Product.objects.all().order_by('-id')
+    queryset = Product.objects.all()
     serializer_class = AgentProductSerializer
     parser_classes = (MultiPartParser, FileUploadParser)
     filter_backends = (SearchFilter,)
