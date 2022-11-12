@@ -25,7 +25,7 @@ class ProductModelViewSet(ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         self.serializer_class = UpdateProductClassSerializer
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(self.get_object(), data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"message": {

@@ -36,7 +36,7 @@ class RegistrationModelViewSet(ModelViewSet):
         serializer.save()
         return Response(
             {
-                "uz": "Muvaffaqiyatli ro'yxatdan o'tdingiz !!!",
-                "en": "You have successfully registered !!!",
-                "ru": "Вы успешно зарегистрированы !!!",
+                "uz": "Muvaffaqiyatli ro'yxatdan o'tdingiz",
+                "en": "You have successfully registered",
+                "ru": "Вы успешно зарегистрированы",
             })

@@ -22,16 +22,6 @@ class WorkerModelViewSet(ModelViewSet):
     serializer_class = GetAllSerializer
     filter_backends = (SearchFilter,)
 
-    @action(methods=["post"], detail=False)
-    def create_worker(self, request, *args, **kwargs):
-        self.serializer_class = UserCreateSerializer
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(
-            {"message": "Successfully Created"}
-        )
-
     def list(self, request, *args, **kwargs):
         self.queryset = User.objects.filter(company=request.user.company)
         self.serializer_class = MemberAllSerializer
@@ -44,6 +34,21 @@ class WorkerModelViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailUserCompanySerializer
         return super(WorkerModelViewSet, self).retrieve(request, *args, **kwargs)
+
+    @action(methods=["post"], detail=False)
+    def create_worker(self, request, *args, **kwargs):
+        self.serializer_class = UserCreateSerializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(
+            {"message": {
+                "uz": "Muoffaqiyatli Yaratildi",
+                "en": "Successfully Created",
+                "ru": "Создано успешно"
+            }
+            }
+        )
 
 
 class DistrictApiView(APIView):
