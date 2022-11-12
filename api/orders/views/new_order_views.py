@@ -19,9 +19,9 @@ class OrderProductViews(APIView):
         serializer.save()
         return Response(
             {
-                "uz": "Maxsulot muoffaqiyatli qo'shildi !!!",
-                "en": "Product added successfully !!!",
-                "ru": "Продукт успешно добавлен !!!"
+                "uz": "Maxsulot muoffaqiyatli qo'shildi",
+                "en": "Product added successfully ",
+                "ru": "Продукт успешно добавлен "
             }
         )
 
@@ -39,9 +39,9 @@ class OrderProductUpdateApiView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({
-            "uz": "Muoffaqiyatli O'zgartirildi !!",
-            "en": "Changed Successfully !!",
-            "ru": "Изменено успешно !!",
+            "uz": "Muoffaqiyatli O'zgartirildi",
+            "en": "Changed Successfully",
+            "ru": "Изменено успешно",
         })
 
 
@@ -68,9 +68,9 @@ class OrderClientModelViewSet(ModelViewSet):
         serializer.save()
         return Response(
             {
-                "uz": "Muvaffaqiyatli yaratildi !!!",
-                "en": "Successfully Created !!!",
-                "ru": "Создано успешно !!!"
+                "uz": "Muvaffaqiyatli yaratildi",
+                "en": "Successfully Created",
+                "ru": "Изменено успешно"
             }
         )
 
@@ -79,4 +79,11 @@ class OrderClientModelViewSet(ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = UpdateOrderSerializer
-        return super(OrderClientModelViewSet, self).update(request, *args, **kwargs)
+        serializer = self.get_serializer(self.get_object(), data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": {
+            "uz": "Muoffaqiyatli O'zgartirildi",
+            "en": "Successfully Updated",
+            "ru": "Создано успешно"
+        }})
