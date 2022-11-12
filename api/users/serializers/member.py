@@ -61,7 +61,7 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
     date_of_birth = serializers.DateField(required=False)
     phone_number = serializers.CharField(required=False)
     password = serializers.CharField(required=False)
-    role = serializers.ChoiceField(required=False)
+    role = serializers.CharField(required=False)
 
     class Meta:
         model = User
@@ -160,9 +160,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
                 **validated_data
             )
         return {
-            "uz": "Muvaffaqiyatli yaratildi !!!",
-            "en": "Successfully Created !!!",
-            "ru": "Создано успешно !!!",
+            "uz": "Muvaffaqiyatli yaratildi ",
+            "en": "Successfully Created ",
+            "ru": "Создано успешно",
         }
 
 

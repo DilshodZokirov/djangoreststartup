@@ -10,6 +10,7 @@ class Product(BaseModel):
     price2 = models.FloatField(null=True, blank=True)
     compound = models.CharField(max_length=5000, null=True)
     temporarily_unavailable = models.BooleanField(default=False)
+    temporarily = models.CharField(max_length=5000, null=True, blank=True)
     pictures = models.FileField(upload_to='product', null=True, blank=True)
     expiration_date = models.DateTimeField()
     count = models.IntegerField(null=True, blank=True)

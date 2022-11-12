@@ -25,7 +25,14 @@ class ProductModelViewSet(ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         self.serializer_class = UpdateProductClassSerializer
-        return super(ProductModelViewSet, self).partial_update(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": {
+            "uz": "Muoffaqiyatli o'zgartirildi",
+            "en": "Successfully Updated",
+            "ru": "Создано успешно"
+        }})
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailProductSerializer

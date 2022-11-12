@@ -146,7 +146,7 @@ WSGI_APPLICATION = 'distributive.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 STATIC_ROOT = join_path(BASE_DIR, 'static')
-MEDIA_ROOT = join_path(BASE_DIR, 'media/')
+MEDIA_ROOT = join_path(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 # AUTH_USER_MODEL = 'apps_user.User'
 
