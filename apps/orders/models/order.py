@@ -12,12 +12,9 @@ class OrderProduct(BaseModel):
     count = models.IntegerField(default=1)
     price = models.FloatField(default=0)
 
-    @property
-    def total_price(self):
-        return float(self.count) * float(self.price)
-
-    def __str__(self):
-        return self.pk
+    # @property
+    # def total_price(self):
+    #     return float(self.count) * float(self.price)
 
 
 class Order(BaseModel):
