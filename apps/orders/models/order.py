@@ -46,6 +46,7 @@ class Order(BaseModel):
     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
     comment = models.CharField(max_length=500, null=True, blank=True)
     products = models.ManyToManyField(Product, through=OrderProduct, related_name="order_products")
+    inn = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.customer_name
