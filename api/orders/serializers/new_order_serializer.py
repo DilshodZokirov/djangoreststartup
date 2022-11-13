@@ -110,10 +110,10 @@ class OrderProductSerializer(ModelSerializer):
 
 
 class NewOrderCreateSerializer(ModelSerializer):
-    order_products = OrderProductSerializer(many=True, required=False)
+    products = OrderProductSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        order_data = validated_data.pop('order_products')
+        order_data = validated_data.pop('products')
         order = Order.objects.create(**validated_data)
         for person in order_data:
             d = dict(person)
