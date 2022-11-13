@@ -135,6 +135,7 @@ class GetAllOrderSerializers(ModelSerializer):
             "comment",
             "products",
             "total_price",
+            "paid_price"
         ]
 
 
@@ -149,6 +150,8 @@ class NewOrderCreateSerializer(ModelSerializer):
             "pharmacy_name",
             "customer_name",
             "phone_number",
+            "total_price",
+            "paid_price",
             "comment",
         ]
 
@@ -174,10 +177,6 @@ class NewOrderCreateSerializer(ModelSerializer):
                                         price=d.get('price'))
         instance.save()
         return instance
-
-
-class Meta:
-    pass
 
 
 class CreateOrderSerializer(ModelSerializer):
