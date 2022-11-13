@@ -20,4 +20,4 @@ class AdminOrder(ModelAdmin):
 
 @admin.register(OrderProduct)
 class AdminOrderProduct(ModelAdmin):
-    list_display = ["id", "order", "product"]
+    list_display = ["id", "order", "product", "price"]
