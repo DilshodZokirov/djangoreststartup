@@ -79,16 +79,12 @@ class OrderClassesSerializer(ModelSerializer):
 #
 
 # Order Product Serializers
-# class ProductSerializer(ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = [
-#             "id",
-#             "name",
-#             "count_of_product",
-#             "size",
-#             "count"
-#         ]
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "id"
+        ]
 
 
 # class GroupCreateSerializer(ModelSerializer):
@@ -98,7 +94,7 @@ class OrderClassesSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    # product = ProductSerializer()
+    product = ProductSerializer()
 
     class Meta:
         model = OrderProduct
@@ -111,17 +107,6 @@ class OrderProductSerializer(ModelSerializer):
 
 class NewOrderCreateSerializer(ModelSerializer):
     products = OrderProductSerializer(many=True, required=False)
-
-    # pharmacy_name = models.CharField(max_length=30, null=True, blank=True)
-    # customer_name = models.CharField(max_length=300, null=True, blank=True)
-    # seller = models.ForeignKey(User, on_delete=models.PROTECT, related_name='order_seller', null=True, blank=True)
-    # phone_number = models.CharField(max_length=50, null=True, blank=True)
-    # paid_price = models.FloatField(null=True, blank=True, default=0)
-    # total_price = models.FloatField(null=True, blank=True, default=0)
-    # paid_position = models.CharField(max_length=30, choices=MoneyPaid.choices, default=MoneyPaid.NOT_PAID)
-    # order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
-    # comment = models.CharField(max_length=500, null=True, blank=True)
-    # products =
     class Meta:
         model = Order
         fields = [
@@ -135,7 +120,7 @@ class NewOrderCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         order_data = validated_data.pop('products')
-        validated_data['seller'] = self.context['request'].get('user')
+        validated_data['seller'] = self.context['request'].user
         order = Order.objects.create(**validated_data)
         for person in order_data:
             d = dict(person)
