@@ -94,7 +94,7 @@ class ProductSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    product = ProductSerializer()
+    # product = ProductSerializer()
 
     class Meta:
         model = OrderProduct
