@@ -105,15 +105,13 @@ class OrderProductSerializer(ModelSerializer):
         ]
 
 
-class ProductGetSerializer(ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ["id", "name"]
+# class ProductGetSerializer(ModelSerializer):
+#     class Meta:
+#         model = Product
+#         fields = ["id", "name"]
 
 
 class ProductAllSerializer(ModelSerializer):
-    product = ProductGetSerializer(many=True)
-
     class Meta:
         model = OrderProduct
         fields = [
