@@ -15,7 +15,7 @@ class OrderProduct(BaseModel):
     def __str__(self):
         if not self.price:
             return ""
-        return str(self.price)
+        return f"{self.price}"
 
     @property
     def total_price(self):
