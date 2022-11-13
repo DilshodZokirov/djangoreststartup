@@ -79,16 +79,12 @@ class OrderClassesSerializer(ModelSerializer):
 #
 
 # Order Product Serializers
-# class ProductSerializer(ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = [
-#             "id",
-#             "name",
-#             "count_of_product",
-#             "size",
-#             "count"
-#         ]
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "id"
+        ]
 
 
 # class GroupCreateSerializer(ModelSerializer):
@@ -98,7 +94,7 @@ class OrderClassesSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    # product = ProductSerializer()
+    product = ProductSerializer()
 
     class Meta:
         model = OrderProduct
