@@ -13,7 +13,7 @@ class OrderProduct(BaseModel):
     price = models.FloatField(default=0)
 
     def __str__(self):
-        return self.price or ""
+        return self.price or 0.0
 
     @property
     def total_price(self):
