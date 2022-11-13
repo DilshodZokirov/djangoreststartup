@@ -122,7 +122,7 @@ class ProductAllSerializer(ModelSerializer):
 
 
 class GetAllOrderSerializers(ModelSerializer):
-    products = ProductAllSerializer(many=True)
+    order_products = ProductAllSerializer(many=True)
 
     class Meta:
         model = Order
@@ -133,9 +133,10 @@ class GetAllOrderSerializers(ModelSerializer):
             "phone_number",
             "seller",
             "comment",
-            "products",
+            "order_products",
             "total_price",
-            "paid_price"
+            "paid_price",
+            "inn"
         ]
 
 
@@ -152,6 +153,7 @@ class NewOrderCreateSerializer(ModelSerializer):
             "phone_number",
             "total_price",
             "paid_price",
+            'inn',
             "comment",
         ]
 
