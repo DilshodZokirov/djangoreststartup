@@ -105,8 +105,44 @@ class OrderProductSerializer(ModelSerializer):
         ]
 
 
+class ProductGetSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["id", "name"]
+
+
+class ProductAllSerializer(ModelSerializer):
+    product = ProductGetSerializer()
+
+    class Meta:
+        model = OrderProduct
+        fields = [
+            "product",
+            "count",
+            'price'
+        ]
+
+
+class GetAllOrderSerializers(ModelSerializer):
+    products = ProductAllSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = [
+            "id",
+            "pharmacy_name",
+            "customer_name",
+            "phone_number",
+            "seller",
+            "comment",
+            "products",
+            "total_price",
+        ]
+
+
 class NewOrderCreateSerializer(ModelSerializer):
     products = OrderProductSerializer(many=True, required=False)
+
     class Meta:
         model = Order
         fields = [
