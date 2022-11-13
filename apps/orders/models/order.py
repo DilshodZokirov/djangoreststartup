@@ -17,7 +17,7 @@ class OrderProduct(BaseModel):
         return float(self.count) * float(self.price)
 
     def __str__(self):
-        return self.product
+        return self.pk
 
 
 class Order(BaseModel):

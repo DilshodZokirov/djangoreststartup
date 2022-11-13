@@ -50,6 +50,11 @@ class OrderClientModelViewSet(ModelViewSet):
     serializer_class = NewOrderCreateSerializer
     queryset = Order.objects.filter(is_deleted=False)
 
+    def list(self, request, *args, **kwargs):
+        self.serializer_class = GetAllOrderSerializers
+        self.queryset = Order.objects.filter(seller=request.user)
+        return super(OrderClientModelViewSet, self).list(request, *args, **kwargs)
+
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = GetOneOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
