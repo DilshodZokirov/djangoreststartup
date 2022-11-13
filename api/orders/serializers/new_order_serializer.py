@@ -112,7 +112,7 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
-    product = ProductGetSerializer()
+    product = ProductGetSerializer(many=True)
 
     class Meta:
         model = OrderProduct
