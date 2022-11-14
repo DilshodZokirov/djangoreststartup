@@ -42,7 +42,7 @@ class OrderProduct(models.Model):
     price = models.FloatField(default=0)
 
     def __str__(self):
-        return f"{self.product}{self.order}"
+        return f"{self.product}{self.order}" or "No Finished"
 
     # @property
     # def total_price(self):
