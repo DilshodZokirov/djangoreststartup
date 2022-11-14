@@ -137,6 +137,8 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
+    product = ProductGetSerializer()
+
     class Meta:
         model = OrderItem
         fields = [
