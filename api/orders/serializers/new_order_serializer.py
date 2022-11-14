@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import Serializer, ModelSerializer
 
 from apps.orders.models import Order, OrderProduct
@@ -94,7 +95,7 @@ class ProductSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    # product = ProductSerializer()
+    product = serializers.PrimaryKeyRelatedField(required=False, source="Product")
 
     class Meta:
         model = OrderProduct
@@ -112,12 +113,12 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
-    product_order_product = ProductGetSerializer(source="Product")
+    # product_order_product = ProductGetSerializer(source="Product")
 
     class Meta:
         model = OrderProduct
         fields = [
-            "product_order_product",
+            "product",
             "count",
             'price'
         ]
