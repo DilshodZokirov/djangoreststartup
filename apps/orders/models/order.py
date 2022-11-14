@@ -5,21 +5,6 @@ from apps.users.models import User
 from distributive.models import BaseModel
 
 
-class OrderProduct(models.Model):
-    order = models.ForeignKey("Order", on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True,
-                                blank=True)
-    count = models.IntegerField(default=1)
-    price = models.FloatField(default=0)
-
-    def __str__(self):
-        return f"{self.product.name}{self.order.customer_name}"
-
-    # @property
-    # def total_price(self):
-    #     return float(self.count) * float(self.price)
-
-
 class Order(BaseModel):
     class OrderPosition(models.TextChoices):
         PENDING = "Pending"
@@ -42,8 +27,23 @@ class Order(BaseModel):
     paid_position = models.CharField(max_length=30, choices=MoneyPaid.choices, default=MoneyPaid.NOT_PAID)
     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
     comment = models.CharField(max_length=500, null=True, blank=True)
-    products = models.ManyToManyField(Product, through=OrderProduct, related_name="order_products")
+    products = models.ManyToManyField(Product, through="OrderProduct", related_name="order_products")
     inn = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.customer_name
+
+
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True,
+                                related_name="product_order_product")
+    count = models.IntegerField(default=1)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return f"{self.product}{self.order}"
+
+    # @property
+    # def total_price(self):
+    #     return float(self.count) * float(self.price)
