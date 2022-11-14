@@ -22,8 +22,7 @@ class GetOneOrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = [
-            "order_position",
-            "pharmacy_name"
+            ""
         ]
 
 
@@ -40,7 +39,8 @@ class DetailOrderSerializer(ModelSerializer):
             "customer_name",
             "phone_number",
             "seller",
-            "comment"
+            "comment",
+            "products"
         ]
 
 

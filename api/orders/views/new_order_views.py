@@ -64,7 +64,7 @@ class OrderClientModelViewSet(ModelViewSet):
         return super(OrderClientModelViewSet, self).list(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
-        self.serializer_class = GetOneOrderSerializer
+        self.serializer_class = DetailOrderSerializer
         return super(OrderClientModelViewSet, self).retrieve(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
