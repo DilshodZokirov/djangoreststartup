@@ -97,12 +97,14 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'expiration_date',
             'temporarily_unavailable',
             'count',
-            'count_of_product'
+            'count_of_product',
+            "company"
         ]
 
     @transaction.atomic
     def create(self, validated_data):
         validated_data['created_by'] = self.context['request'].user
+        validated_data['company'] = self.context['request'].user.company
         if self.data.get('temporarily_unavailable'):
             validated_data['temporarily_unavailable'] = self.data.get('temporarily_unavailable')
         else:

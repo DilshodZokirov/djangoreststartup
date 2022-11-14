@@ -14,6 +14,7 @@ class Product(BaseModel):
     pictures = models.FileField(upload_to='product', null=True, blank=True)
     expiration_date = models.DateTimeField()
     count = models.IntegerField(null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     size = models.IntegerField(null=True, blank=True)
     count_of_product = models.IntegerField(null=True, blank=True)
 
