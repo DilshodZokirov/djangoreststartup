@@ -119,7 +119,7 @@ class ProductSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(required=True, read_only=False, queryset=Product.objects.all())
+    product = serializers.PrimaryKeyRelatedField(required=True, read_only=True, queryset=Product.objects.all())
 
     class Meta:
         model = OrderItem
@@ -202,7 +202,7 @@ class NewOrderCreateSerializer(ModelSerializer):
         for person in order_data:
             d = dict(person)
             OrderItem.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
-                                        price=d.get('price'))
+                                     price=d.get('price'))
         instance.save()
         return instance
 
