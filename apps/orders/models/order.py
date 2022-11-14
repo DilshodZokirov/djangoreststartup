@@ -35,14 +35,14 @@ class Order(BaseModel):
 
 
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True,
                                 related_name="product_order_product")
     count = models.IntegerField(default=1)
     price = models.FloatField(default=0)
 
     def __str__(self):
-        return f"{self.product}{self.order}" or "No Finished"
+        return str(f"{self.product}{self.order}") or "No Finished"
 
     # @property
     # def total_price(self):
