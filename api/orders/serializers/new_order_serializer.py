@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework.serializers import Serializer, ModelSerializer
 
-from apps.orders.models import Order, OrderProduct
+from apps.orders.models import Order, OrderItem
 from apps.product.models import Product
 from apps.users.models import User
 
@@ -122,7 +122,7 @@ class OrderProductSerializer(ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(required=True, read_only=False, queryset=Product.objects.all())
 
     class Meta:
-        model = OrderProduct
+        model = OrderItem
         fields = [
             "product",
             "count",
@@ -138,7 +138,7 @@ class ProductGetSerializer(ModelSerializer):
 
 class ProductAllSerializer(ModelSerializer):
     class Meta:
-        model = OrderProduct
+        model = OrderItem
         fields = [
             "product",
             "count",
@@ -182,15 +182,16 @@ class NewOrderCreateSerializer(ModelSerializer):
             "comment",
         ]
 
-    def create(self, validated_data):
-        order_data = validated_data.pop('products')
-        validated_data['seller'] = self.context['request'].user
-        order = Order.objects.create(**validated_data)
-        for person in order_data:
-            d = dict(person)
-            OrderProduct.objects.create(order=order, product=d.get('product'), count=d.get('count'),
-                                        price=d.get('price'))
-        return order
+    # def create(self, validated_data):
+    #     order_data = validated_data.pop('products')
+    #     validated_data['seller'] = self.context['request'].user
+    #     order = Order.objects.create(**validated_data)
+    #     for person in order_data:
+    #         d = dict(person)
+    #         order_item = OrderItem.objects.create(product=d.get('product'), count=d.get('count'),
+    #                                               price=d.get('price'))
+    #         order_item.save()
+    #     return order
 
     def update(self, instance, validated_data):
         order_data = validated_data.pop('order_products')
@@ -200,7 +201,7 @@ class NewOrderCreateSerializer(ModelSerializer):
         OrderProduct.objects.filter(order=instance).delete()
         for person in order_data:
             d = dict(person)
-            OrderProduct.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
+            OrderItem.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
                                         price=d.get('price'))
         instance.save()
         return instance
@@ -227,7 +228,7 @@ class CreateOrderProductSerializer(ModelSerializer):
     order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.filter(is_deleted=False))
 
     class Meta:
-        model = OrderProduct
+        model = OrderItem
         fields = [
             "order",
             "product",
@@ -237,7 +238,7 @@ class CreateOrderProductSerializer(ModelSerializer):
 
 class UpdateOrderProductSerializer(ModelSerializer):
     class Meta:
-        model = OrderProduct
+        model = OrderItem
         fields = [
             "order",
             "product"
