@@ -20,7 +20,7 @@ class ProductModelViewSet(ModelViewSet):
     filter_backends = (SearchFilter,)
 
     def list(self, request, *args, **kwargs):
-        self.queryset = Product.objects.filter(temporarily_unavailable=True)
+        self.queryset = Product.objects.filter(company=request.user.company)
         return super(ProductModelViewSet, self).list(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
