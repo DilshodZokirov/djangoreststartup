@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from apps.orders.models import Order, OrderProduct
+from apps.orders.models import Order, OrderItem
 
 
 # pharmacy_name = models.CharField(max_length=30, null=True, blank=True)
@@ -18,6 +18,6 @@ class AdminOrder(ModelAdmin):
     list_display = ["id", "pharmacy_name", "customer_name", "phone_number"]
 
 
-@admin.register(OrderProduct)
+@admin.register(OrderItem)
 class AdminOrderProduct(ModelAdmin):
-    list_display = ["id", "order", "product", "price"]
+    list_display = ["id", "product", "price", "count"]

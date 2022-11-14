@@ -27,23 +27,17 @@ class Order(BaseModel):
     paid_position = models.CharField(max_length=30, choices=MoneyPaid.choices, default=MoneyPaid.NOT_PAID)
     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
     comment = models.CharField(max_length=500, null=True, blank=True)
-    products = models.ManyToManyField(Product, through="OrderProduct", related_name="order_products")
+    products = models.ManyToManyField("OrderItem", related_name="order_products")
     inn = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.customer_name
 
 
-class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True,
-                                related_name="product_order_product")
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, related_name="order_product_order", on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
     price = models.FloatField(default=0)
 
     def __str__(self):
-        return str(f"{self.product}{self.order}") or "No Finished"
-
-    # @property
-    # def total_price(self):
-    #     return float(self.count) * float(self.price)
+        return f"{self.product.name} of {self.count}"
