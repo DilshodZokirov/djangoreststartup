@@ -71,6 +71,7 @@ class OrderClientModelViewSet(ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailOrderSerializer
         serializer = self.get_serializer(self.get_object(), data=request.data)
+        serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
