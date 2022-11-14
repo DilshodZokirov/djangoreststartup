@@ -23,7 +23,7 @@ class ProductModelViewSet(ModelViewSet):
         self.queryset = Product.objects.filter(company=request.user.company)
         return super(ProductModelViewSet, self).list(request, *args, **kwargs)
 
-    def partial_update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         self.serializer_class = UpdateProductClassSerializer
         serializer = self.get_serializer(self.get_object(), data=request.data)
         serializer.is_valid(raise_exception=True)
