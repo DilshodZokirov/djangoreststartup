@@ -119,7 +119,7 @@ class ProductSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(required=True, read_only=True, queryset=Product.objects.all())
+    product = serializers.PrimaryKeyRelatedField(required=True, queryset=Product.objects.all())
 
     class Meta:
         model = OrderItem
@@ -182,16 +182,16 @@ class NewOrderCreateSerializer(ModelSerializer):
             "comment",
         ]
 
-    # def create(self, validated_data):
-    #     order_data = validated_data.pop('products')
-    #     validated_data['seller'] = self.context['request'].user
-    #     order = Order.objects.create(**validated_data)
-    #     for person in order_data:
-    #         d = dict(person)
-    #         order_item = OrderItem.objects.create(product=d.get('product'), count=d.get('count'),
-    #                                               price=d.get('price'))
-    #         order_item.save()
-    #     return order
+    def create(self, validated_data):
+        order_data = validated_data.pop('products')
+        validated_data['seller'] = self.context['request'].user
+        order = Order.objects.create(**validated_data)
+        for person in order_data:
+            d = dict(person)
+            order_item = OrderItem.objects.create(product=d.get('product'), count=d.get('count'),
+                                                  price=d.get('price'))
+            order_item.save()
+        return order
 
     def update(self, instance, validated_data):
         order_data = validated_data.pop('order_products')
