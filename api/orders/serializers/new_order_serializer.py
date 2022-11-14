@@ -151,8 +151,7 @@ class GetAllOrderSerializers(ModelSerializer):
 
     class Meta:
         model = Order
-        fields = [
-            "__all__"
+        fields = "__all__"
             # "id",
             # "pharmacy_name",
             # "customer_name",
@@ -163,7 +162,7 @@ class GetAllOrderSerializers(ModelSerializer):
             # "total_price",
             # "paid_price",
             # "inn"
-        ]
+
 
 
 class NewOrderCreateSerializer(ModelSerializer):
