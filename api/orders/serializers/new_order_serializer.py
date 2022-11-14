@@ -147,7 +147,7 @@ class ProductAllSerializer(ModelSerializer):
 
 
 class GetAllOrderSerializers(ModelSerializer):
-    # products = ProductAllSerializer(many=True, read_only=True)
+    products = ProductAllSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
