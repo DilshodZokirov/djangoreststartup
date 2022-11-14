@@ -112,12 +112,12 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
-    product = ProductGetSerializer(source="Product")
+    product_order_product = ProductGetSerializer(source="Product")
 
     class Meta:
         model = OrderProduct
         fields = [
-            "product",
+            "product_order_product",
             "count",
             'price'
         ]
