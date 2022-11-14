@@ -8,8 +8,9 @@ from rest_framework.viewsets import ModelViewSet
 
 from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
     CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer, \
-    UpdateOrderSerializer, DetailOrderSerializer, NewOrderCreateSerializer,GetAllOrderSerializers
+    UpdateOrderSerializer, DetailOrderSerializer, NewOrderCreateSerializer, GetAllOrderSerializers
 from apps.orders.models import Order, OrderProduct
+from apps.users.models import User
 
 
 # class OrderProductViews(APIView):
@@ -50,9 +51,16 @@ class OrderClientModelViewSet(ModelViewSet):
     serializer_class = NewOrderCreateSerializer
     queryset = Order.objects.filter(is_deleted=False)
 
+    def get_queryset(self):
+        if self.request.user.role == "office_manager":
+            queryset = Order.objects.filter(is_deleted=False)
+        else:
+            queryset = Order.objects.filter(seller=self.request.user)
+        return queryset
+
     def list(self, request, *args, **kwargs):
         self.serializer_class = GetAllOrderSerializers
-        self.queryset = Order.objects.filter(seller=request.user)
+        # self.queryset = Order.objects.filter(seller=request.user)
         return super(OrderClientModelViewSet, self).list(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
