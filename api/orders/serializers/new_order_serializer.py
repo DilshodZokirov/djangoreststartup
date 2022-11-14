@@ -137,19 +137,17 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
-    product = ProductGetSerializer()
+    # product = ProductGetSerializer()
 
     class Meta:
         model = OrderItem
         fields = [
-            "product",
-            "count",
-            'price'
+            "__all__"
         ]
 
 
 class GetAllOrderSerializers(ModelSerializer):
-    products = ProductAllSerializer(many=True)
+    # products = ProductAllSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
