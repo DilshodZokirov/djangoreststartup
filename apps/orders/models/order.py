@@ -13,14 +13,11 @@ class OrderProduct(BaseModel):
     price = models.FloatField(default=0)
 
     def __str__(self):
-        if self.product is not None:
-            return self.product.name
-        else:
-            return "Unknown"
+        return f"{self.product.name}{self.order.customer_name}"
 
-    @property
-    def total_price(self):
-        return float(self.count) * float(self.price)
+    # @property
+    # def total_price(self):
+    #     return float(self.count) * float(self.price)
 
 
 class Order(BaseModel):
