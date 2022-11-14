@@ -52,6 +52,7 @@ class OrderClientModelViewSet(ModelViewSet):
     queryset = Order.objects.filter(is_deleted=False)
 
     def get_queryset(self):
+        queryset = Order.objects.filter(seller=self.request.user)
         if self.request.user.role == "office_manager":
             queryset = Order.objects.filter(is_deleted=False)
         else:
@@ -59,9 +60,13 @@ class OrderClientModelViewSet(ModelViewSet):
         return queryset
 
     def list(self, request, *args, **kwargs):
-        self.serializer_class = GetAllOrderSerializers
-        # self.queryset = Order.objects.filter(seller=request.user)
-        return super(OrderClientModelViewSet, self).list(request, *args, **kwargs)
+        queryset = Order.objects.filter(seller=self.request.user)
+        if self.request.user.role == "office_manager":
+            queryset = Order.objects.filter(is_deleted=False)
+        else:
+            queryset = Order.objects.filter(seller=self.request.user)
+        serializer = GetAllOrderSerializers(queryset, many=True)
+        return Response(serializer.data)
 
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = DetailOrderSerializer
