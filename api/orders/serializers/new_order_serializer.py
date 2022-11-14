@@ -147,21 +147,22 @@ class ProductAllSerializer(ModelSerializer):
 
 
 class GetAllOrderSerializers(ModelSerializer):
-    products = ProductAllSerializer(many=True)
+    # products = ProductAllSerializer(many=True)
 
     class Meta:
         model = Order
         fields = [
-            "id",
-            "pharmacy_name",
-            "customer_name",
-            "phone_number",
-            "seller",
-            "comment",
-            "products",
-            "total_price",
-            "paid_price",
-            "inn"
+            "__all__"
+            # "id",
+            # "pharmacy_name",
+            # "customer_name",
+            # "phone_number",
+            # "seller",
+            # "comment",
+            # "products",
+            # "total_price",
+            # "paid_price",
+            # "inn"
         ]
 
 
