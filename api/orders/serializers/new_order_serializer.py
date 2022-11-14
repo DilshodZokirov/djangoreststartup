@@ -81,10 +81,34 @@ class OrderClassesSerializer(ModelSerializer):
 
 # Order Product Serializers
 class ProductSerializer(ModelSerializer):
+    # name = models.CharField(max_length=300)
+    # created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_product", null=True, blank=True)
+    # price1 = models.FloatField(null=True, blank=True)
+    # price2 = models.FloatField(null=True, blank=True)
+    # compound = models.CharField(max_length=5000, null=True)
+    # temporarily_unavailable = models.BooleanField(default=False)
+    # temporarily = models.CharField(max_length=5000, null=True, blank=True)
+    # pictures = models.FileField(upload_to='product', null=True, blank=True)
+    # expiration_date = models.DateTimeField()
+    # count = models.IntegerField(null=True, blank=True)
+    # company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    # size = models.IntegerField(null=True, blank=True)
+    # count_of_product = models.IntegerField(null=True, blank=True)
     class Meta:
         model = Product
         fields = [
-            "id"
+            "id",
+            "name",
+            "price1",
+            "price2",
+            "compound",
+            "temporarily_unavailable",
+            "temporarily",
+            "pictures",
+            "expiration_date",
+            "count",
+            "size",
+            "count_of_product",
         ]
 
 
@@ -95,7 +119,7 @@ class ProductSerializer(ModelSerializer):
 #
 #
 class OrderProductSerializer(ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(required=False, source="Product")
+    product = serializers.PrimaryKeyRelatedField(required=True, read_only=False, queryset=Product.objects.all())
 
     class Meta:
         model = OrderProduct
@@ -113,8 +137,6 @@ class ProductGetSerializer(ModelSerializer):
 
 
 class ProductAllSerializer(ModelSerializer):
-    # product_order_product = ProductGetSerializer(source="Product")
-
     class Meta:
         model = OrderProduct
         fields = [
