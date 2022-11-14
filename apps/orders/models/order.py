@@ -12,8 +12,8 @@ class OrderProduct(BaseModel):
     count = models.IntegerField(default=1)
     price = models.FloatField(default=0)
 
-    def __str__(self):
-        return f"{self.product.name}{self.order.customer_name}"
+    # def __str__(self):
+    #     return f"{self.product.name}{self.order.customer_name}"
 
     # @property
     # def total_price(self):
