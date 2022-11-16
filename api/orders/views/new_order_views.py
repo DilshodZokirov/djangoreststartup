@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.orders.serializers.new_order_serializer import OrderClassesSerializer, \
-    CreateOrderProductSerializer, UpdateOrderProductSerializer, GetOneOrderSerializer, CreateOrderSerializer, \
+    CreateOrderProductSerializer, UpdateOrderProductSerializer, CreateOrderSerializer, \
     UpdateOrderSerializer, DetailOrderSerializer, NewOrderCreateSerializer, GetAllOrderSerializers
 from apps.orders.models import Order, OrderItem
 from apps.users.models import User
