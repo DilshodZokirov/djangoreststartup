@@ -195,6 +195,8 @@ class NewOrderCreateSerializer(ModelSerializer):
             order_item = OrderItem.objects.create(product=d.get('product'), count=d.get('count'),
                                                   price=d.get('price'))
             order_item.save()
+            order.products.add(order_item)
+        order.save()
         return order
 
     def update(self, instance, validated_data):
