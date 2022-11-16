@@ -36,7 +36,8 @@ class ProductAllSerializer(ModelSerializer):
 
 class DetailOrderSerializer(ModelSerializer):
     seller = SellerClassesSerializer()
-    products = ProductAllSerializer(many=True)
+
+    # products = ProductAllSerializer(many=True)
 
     class Meta:
         model = Order
@@ -51,6 +52,11 @@ class DetailOrderSerializer(ModelSerializer):
             "comment",
             "products"
         ]
+
+    def to_representation(self, instance: Order):
+        rep = super(DetailOrderSerializer, self).to_representation(instance)
+        rep["products"] = ProductAllSerializer(instance.products.all(), many=True).data
+        return rep
 
 
 class OrderClassesSerializer(ModelSerializer):
