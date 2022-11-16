@@ -18,8 +18,28 @@ class SellerClassesSerializer(ModelSerializer):
         ]
 
 
+# name = models.CharField(max_length=300)
+#    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_product", null=True, blank=True)
+#    price1 = models.FloatField(null=True, blank=True)
+#    price2 = models.FloatField(null=True, blank=True)
+#    compound = models.CharField(max_length=5000, null=True)
+#    temporarily_unavailable = models.BooleanField(default=False)
+#    temporarily = models.CharField(max_length=5000, null=True, blank=True)
+#    pictures = models.FileField(upload_to='product', null=True, blank=True)
+#    expiration_date = models.DateTimeField()
+#    count = models.IntegerField(null=True, blank=True)
+#    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+#    size = models.IntegerField(null=True, blank=True)
+#    count_of_product = models.IntegerField(null=True, blank=True)
+
+class ProductGetSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["id", "name", "price1", "price2", "pictures"]
+
+
 class ProductAllSerializer(ModelSerializer):
-    # product = ProductGetSerializer()
+    product = ProductGetSerializer()
 
     class Meta:
         model = OrderItem
@@ -145,12 +165,6 @@ class OrderProductSerializer(ModelSerializer):
         ]
 
 
-class ProductGetSerializer(ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ["id", "name"]
-
-
 class GetAllOrderSerializers(ModelSerializer):
     # products = ProductAllSerializer(many=True)
 
@@ -204,11 +218,12 @@ class NewOrderCreateSerializer(ModelSerializer):
         for item in validated_data:
             if Order._meta.get_field(item):
                 setattr(instance, item, validated_data[item])
-        OrderProduct.objects.filter(order=instance).delete()
+        OrderItem.objects.filter(order=instance).delete()
         for person in order_data:
             d = dict(person)
-            OrderItem.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
-                                     price=d.get('price'))
+            order_item = OrderItem.objects.create(order=instance, product=d.get('product'), count=d.get('count'),
+                                                  price=d.get('price'))
+            instance.products.add(order_item)
         instance.save()
         return instance
 
