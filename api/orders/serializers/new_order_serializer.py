@@ -196,7 +196,7 @@ class NewOrderCreateSerializer(ModelSerializer):
                                                   price=d.get('price'))
             order_item.save()
             order.products.add(order_item)
-        order.save()
+        # order.save()
         return order
 
     def update(self, instance, validated_data):
