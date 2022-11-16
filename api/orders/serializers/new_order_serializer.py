@@ -18,16 +18,25 @@ class SellerClassesSerializer(ModelSerializer):
         ]
 
 
-class GetOneOrderSerializer(ModelSerializer):
+class ProductAllSerializer(ModelSerializer):
+    # product = ProductGetSerializer()
+
     class Meta:
-        model = Order
-        fields = [
-            ""
-        ]
+        model = OrderItem
+        fields = "__all__"
+
+
+# class GetOneOrderSerializer(ModelSerializer):
+#     class Meta:
+#         model = Order
+#         fields = [
+#             ""
+#         ]
 
 
 class DetailOrderSerializer(ModelSerializer):
     seller = SellerClassesSerializer()
+    products = ProductAllSerializer(many=True)
 
     class Meta:
         model = Order
@@ -134,16 +143,6 @@ class ProductGetSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ["id", "name"]
-
-
-class ProductAllSerializer(ModelSerializer):
-    # product = ProductGetSerializer()
-
-    class Meta:
-        model = OrderItem
-        fields = [
-            "__all__"
-        ]
 
 
 class GetAllOrderSerializers(ModelSerializer):
