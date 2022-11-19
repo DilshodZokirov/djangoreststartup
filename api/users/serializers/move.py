@@ -17,10 +17,10 @@ class UserMoveSerializer(ModelSerializer):
             "lot",
         ]
 
-    def create(self, validated_data: dict):
-        user = UserMove(**validated_data)
-        user.save()
-        return user
+    # def create(self, validated_data: dict):
+    #     user = UserMove(**validated_data)
+    #     user.save()
+    #     return user
 
 
 class RequestUserSerializer(ModelSerializer):
