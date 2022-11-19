@@ -32,7 +32,7 @@ class UserMoveModelView(ModelViewSet):
         )
 
 
-class SnippetDetail(APIView):
+class UserMoveDetail(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
