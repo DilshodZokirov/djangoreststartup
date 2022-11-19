@@ -27,7 +27,7 @@ class WorkerModelViewSet(ModelViewSet):
         self.serializer_class = MemberAllSerializer
         return super(WorkerModelViewSet, self).list(request, *args, **kwargs)
 
-    def partial_update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         self.serializer_class = MemberUpdateSerializer
         serializer = self.get_serializer(self.get_object(), data=request.data)
         serializer.is_valid(raise_exception=True)
