@@ -47,5 +47,6 @@ class UserMoveListSerializer(ModelSerializer):
             "id",
             "lon",
             "lot",
-            'user'
+            'user',
+            "created_date",
         ]

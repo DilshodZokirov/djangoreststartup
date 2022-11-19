@@ -31,6 +31,6 @@ class UserMoveModelView(ModelViewSet):
         )
 
     def retrieve(self, request, *args, **kwargs):
-        self.queryset = UserMove.objects.filter(created_date__day=datetime.day)
-        self.serializer_class = UserMoveSerializer
+        # self.queryset = UserMove.objects.filter(created_date__day=datetime.day)
+        self.serializer_class = UserMoveListSerializer
         return super(UserMoveModelView, self).retrieve(request, *args, **kwargs)
