@@ -82,7 +82,7 @@ class Company(BaseModel):
 
 
 class UserMove(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_move")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_move", null=True, blank=True)
     lon = models.CharField(max_length=400)
     lot = models.CharField(max_length=400)
 
