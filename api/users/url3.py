@@ -9,5 +9,5 @@ router = DefaultRouter()
 router.register("move", UserMoveModelView)
 urlpatterns = [
     path("", include(router.urls)),
-    path("move/<id>", UserMoveDetail.as_view())
+    path("<id>/", UserMoveDetail.as_view())
 ]
