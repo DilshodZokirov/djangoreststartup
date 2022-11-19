@@ -17,7 +17,7 @@ class UserMoveModelView(ModelViewSet):
     queryset = UserMove.objects.filter(is_deleted=False)
 
     def create(self, request, *args, **kwargs):
-        serializer = UserMoveSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(
@@ -30,8 +30,6 @@ class UserMoveModelView(ModelViewSet):
         )
 
     def retrieve(self, request, *args, **kwargs):
-        queryset = UserMove.objects.filter(user=kwargs['pk'], created_date__day=datetime.day)
+        self.queryset = UserMove.objects.filter(created_date__day=datetime.day)
         self.serializer_class = UserMoveSerializer
-        serializer = self.get_serializer(queryset)
-        return Response(serializer.data)
-
+        return super(UserMoveModelView, self).retrieve(request, *args, **kwargs)
