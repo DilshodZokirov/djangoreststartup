@@ -18,11 +18,8 @@ class UserMoveSerializer(ModelSerializer):
         ]
 
     def create(self, validated_data: dict):
-        # validated_data["user"]=self.context['request']['user']
-        validated_data['user'] = self.context['request'].user
         user = UserMove(**validated_data)
-        user.save()
-        return "success"
+        return user
 
 
 class RequestUserSerializer(ModelSerializer):
