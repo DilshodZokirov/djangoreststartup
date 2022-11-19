@@ -40,4 +40,4 @@ class AdminDistrict(ModelAdmin):
 
 @admin.register(UserMove)
 class AdminUserMove(ModelAdmin):
-    list_display = ['id', 'lon', "lot", "user"]
+    list_display = ['id', 'lon', "lot", "user", "created_date"]
