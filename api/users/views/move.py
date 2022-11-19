@@ -1,12 +1,13 @@
 from datetime import datetime
 
+from django.http.response import Http404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.users.serializers.move import UserMoveSerializer, UserMoveListSerializer, RequestUserSerializer
+from api.users.serializers.move import UserMoveSerializer, RequestUserSerializer, UserMoveUserSerializer
 from apps.users.models import UserMove, User
 
 
@@ -30,7 +31,19 @@ class UserMoveModelView(ModelViewSet):
                 }}
         )
 
-    def retrieve(self, request, *args, **kwargs):
-        # self.queryset = UserMove.objects.filter(created_date__day=datetime.day)
-        self.serializer_class = UserMoveListSerializer
-        return super(UserMoveModelView, self).retrieve(request, *args, **kwargs)
+
+class SnippetDetail(APIView):
+    """
+    Retrieve, update or delete a snippet instance.
+    """
+
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = UserMoveUserSerializer(snippet)
+        return Response(serializer.data)
