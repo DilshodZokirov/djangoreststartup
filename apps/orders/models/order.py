@@ -1,7 +1,7 @@
 from django.db import models
 
 from apps.product.models import Product
-from apps.users.models import User
+from apps.users.models import User, Company
 from distributive.models import BaseModel
 
 
@@ -28,6 +28,9 @@ class Order(BaseModel):
     order_position = models.CharField(max_length=400, choices=OrderPosition.choices, default=OrderPosition.PENDING)
     comment = models.CharField(max_length=500, null=True, blank=True)
     products = models.ManyToManyField("OrderItem", related_name="order_products")
+    company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.SET_NULL)
+    lon = models.CharField(max_length=400, null=True, blank=True)
+    lot = models.CharField(max_length=400, null=True, blank=True)
     inn = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
