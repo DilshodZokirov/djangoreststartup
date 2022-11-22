@@ -172,6 +172,7 @@ class GetAllOrderSerializers(ModelSerializer):
         model = Order
         fields = [
             "id",
+            "company",
             "pharmacy_name",
             "customer_name",
             "phone_number",
