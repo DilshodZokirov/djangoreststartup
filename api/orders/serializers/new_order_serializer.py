@@ -199,11 +199,13 @@ class NewOrderCreateSerializer(ModelSerializer):
             "paid_price",
             'inn',
             "comment",
+            "company"
         ]
 
     def create(self, validated_data):
         order_data = validated_data.pop('products')
         validated_data['seller'] = self.context['request'].user
+        validated_data['company'] = self.context['request'].user.company
         order = Order.objects.create(**validated_data)
         for person in order_data:
             d = dict(person)
