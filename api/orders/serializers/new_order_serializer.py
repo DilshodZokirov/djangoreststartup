@@ -180,7 +180,9 @@ class GetAllOrderSerializers(ModelSerializer):
             "comment",
             "total_price",
             "paid_price",
-            "inn"
+            "inn",
+            "lot",
+            "lon"
         ]
 
 

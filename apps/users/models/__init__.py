@@ -47,7 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         MANAGER = "manager"
         DELIVERY = "delivery"
 
-    phone_number = models.CharField(max_length=13, unique=True)
+    id = models.AutoField(primary_key=True, unique=True)
+    phone_number = models.CharField(max_length=13)
     company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
     first_name = models.CharField(max_length=400, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -63,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=400, choices=TYPE.choices, default=TYPE.DELIVERY, null=True)
     is_deleted = models.BooleanField(default=False, null=True, blank=True)
 
-    USERNAME_FIELD = 'phone_number'
+    USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
 
