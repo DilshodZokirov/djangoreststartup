@@ -27,7 +27,7 @@ class LoginUserSerializer(serializers.Serializer):
                     "message": {
                         "uz": "Bunaqa inson topilmadi",
                         "ru": "Пользователь не найден",
-                        "en": 'User is not found'
+                        "уз": 'Бунақа инсон топилмади'
                     }
                 })
             token, _ = Token.objects.get_or_create(user=user)
@@ -61,26 +61,26 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError(
                 {"message": {
-                    "uz": "Bunaqa telefon nomerli inson bizda bor iltimos boshqa nomerdan foydalaning yoki login qismiga o'ting !!!",
-                    "en": "We have a person with such a phone number, please use another number or go to the login section !!!",
-                    "ru": "У нас есть человек с таким номером телефона, пожалуйста используйте другой номер или зайдите в раздел авторизации!!!"
+                    "uz": "Bunaqa telefon nomerli inson bizda bor iltimos boshqa nomerdan foydalaning yoki login qismiga o'ting",
+                    "уз": "Бунақа телефон номерли инсон бизда бор илтимос бошқа номердан фойдаланинг ёки логин қисмига ўтинг",
+                    "ru": "У нас есть человек с таким номером телефона, пожалуйста используйте другой номер или зайдите в раздел авторизации"
                 }
                 })
         if 10 >= len(phone_number) >= 12:
             raise ValidationError(
                 {
                     "message": {
-                        "uz": "Iltimos telefon nomerni to'g'ri kiriting !!!",
-                        "en": "Please enter the correct phone number !!!",
-                        "ru": "Пожалуйста, введите правильный номер телефона !!!"
+                        "uz": "Iltimos telefon nomerni to'g'ri kiriting",
+                        "уз": "Илтимос телефон номерни тўғри киритинг",
+                        "ru": "Пожалуйста, введите правильный номер телефона"
                     }})
         if attrs.get('password') != attrs.get("password2"):
             raise ValidationError(
                 {
                     "message": {
-                        "uz": "Iltimos parolni to'g'ri kiriting !!!",
-                        "en": "Please enter the correct password !!!",
-                        "ru": "Пожалуйста, введите правильный пароль!!!"
+                        "uz": "Iltimos parolni to'g'ri kiriting",
+                        "уз": "Илтимос паролни тўғри киритинг",
+                        "ru": "Пожалуйста, введите правильный пароль"
                     }
                 })
         if User.objects.filter(phone_number=phone_number).exists():
@@ -88,7 +88,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 {
                     "message": {
                         "uz": "Bunaqa inson bizning ro'yxatda bor",
-                        "en": "Such a person is on our list",
+                        "уз": "Бунақа инсон бизнинг рўйхатда бор",
                         "ru": "Такой человек есть в нашем списке"
                     }
                 })
@@ -96,9 +96,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise ValidationError(
                 {
                     "message": {
-                        "uz": "Bunday korxona bizda bor iltimos boshqa nom qo'ying !!!",
-                        "en": "We have such a company, please give it another name!!!",
-                        "ru": "У нас есть такая компания, дайте ей другое название!!!"
+                        "uz": "Bunday korxona bizda bor iltimos boshqa nom qo'ying ",
+                        "уз": "Бундай корхона бизда бор илтимос бошқа ном қўйинг",
+                        "ru": "У нас есть такая компания, дайте ей другое название"
                     }
                 }
             )

@@ -26,7 +26,7 @@ class UserMoveModelView(ModelViewSet):
             {
                 "message": {
                     "uz": "Joylashuv aniqlandi",
-                    "en": "The location has been determined",
+                    "уз": "Жойлашув аниқланди",
                     "ru": "Место было определено"
                 }}
         )

@@ -78,15 +78,12 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.save()
-        return {"message": {
-            "uz": "muoffaqiyatli o'zgartirildi",
-            "en": "Successfully update",
-            "ru": "Создано успешно"
-        }}
+        return "success"
 
 
 class MemberAllSerializer(serializers.ModelSerializer):
     district = DistrictUserSerializer()
+
     # phone_number = models.CharField(max_length=13, unique=True)
     # company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
     # first_name = models.CharField(max_length=400, null=True, blank=True)
@@ -146,14 +143,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
             raise ValidationError(
                 {
                     "uz": "Bunday ishchi  korxonada ishlaydi ",
-                    "en": "Such an employee works in an enterprise ",
+                    "уз": "Бундай ишчи  корхонада ишлайди",
                     "ru": "Такой сотрудник работает на предприятии"
                 })
         if len(password) < 6:
             raise ValidationError(
                 {
                     "uz": "Iltimos passwordni 6 ta belgidan ko'proq kiriting ",
-                    "en": "Please enter password with more than 6 characters",
+                    "уз": "Илтимос пассwордни 6 та белгидан кўпроқ киритинг",
                     "ru": "Пожалуйста, введите пароль длиной более 6 символов"
                 })
         return attrs

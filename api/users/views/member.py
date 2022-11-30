@@ -34,7 +34,7 @@ class WorkerModelViewSet(ModelViewSet):
         serializer.save()
         return Response({"message": {
             "uz": "Muoffaqiyatli O'zgartirildi",
-            "en": "Successfully Updated",
+            "уз": "Муоффақиятли Ўзгартирилди",
             "ru": "Изменено успешно"
 
         }})
@@ -52,7 +52,7 @@ class WorkerModelViewSet(ModelViewSet):
         return Response(
             {"message": {
                 "uz": "Muoffaqiyatli Yaratildi",
-                "en": "Successfully Created",
+                "уз": "Муоффақиятли Яратилди",
                 "ru": "Создано успешно"
             }
             }

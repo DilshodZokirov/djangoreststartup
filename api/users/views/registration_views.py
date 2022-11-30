@@ -37,6 +37,6 @@ class RegistrationModelViewSet(ModelViewSet):
         return Response(
             {"message": {
                 "uz": "Muvaffaqiyatli ro'yxatdan o'tdingiz",
-                "en": "You have successfully registered",
+                "уз": "Муваффақиятли рўйхатдан ўтдингиз",
                 "ru": "Вы успешно зарегистрированы",
             }})
