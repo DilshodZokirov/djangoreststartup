@@ -13,7 +13,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError({"message": {
                 "uz": "Iltimos telefon nomerni kiriting",
                 "ru": "Указанный номер телефона должен быть установлен",
-                "en": 'The given phone number must be set'}})
+                "уз": 'Илтимос телефон номерни киритинг'}})
         user = self.model(phone_number=phone_number, is_active=True, last_login=now,
                           date_joined=now, **extra_fields)
         user.set_password(password)

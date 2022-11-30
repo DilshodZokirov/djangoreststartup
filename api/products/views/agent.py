@@ -31,7 +31,7 @@ class ProductModelViewSet(ModelViewSet):
         return Response({
             "message": {
                 "uz": "Muoffaqiyatli o'zgartirildi",
-                "en": "Successfully Updated",
+                "уз": "Муоффақиятли ўзгартирилди",
                 "ru": "Изменено успешно"
             }})
 
@@ -49,7 +49,7 @@ class ProductModelViewSet(ModelViewSet):
             {
                 "message": {
                     "uz": "Muvaffaqiyatli yaratildi",
-                    "en": "Successfully Created",
+                    "уз": "Муваффақиятли яратилди",
                     "ru": "Создано успешно"
                 }}
 

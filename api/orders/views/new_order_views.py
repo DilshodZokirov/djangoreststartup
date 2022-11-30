@@ -79,7 +79,7 @@ class OrderClientModelViewSet(ModelViewSet):
         serializer.save()
         return Response({"message": {
             "uz": "Muoffaqiyatli O'zgartirildi",
-            "en": "Successfully Updated",
+            "уз": "Муоффақиятли Ўзгартирилди",
             "ru": "Создано успешно"
         }})
 
@@ -90,7 +90,7 @@ class OrderClientModelViewSet(ModelViewSet):
         return Response(
             {"message": {
                 "uz": "Muvaffaqiyatli yaratildi",
-                "en": "Successfully Created",
+                "уз": "Муваффақиятли яратилди",
                 "ru": "Изменено успешно"
             }}
         )
