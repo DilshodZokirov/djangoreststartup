@@ -20,11 +20,11 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, phone_number, password=None, **extra_fields):
+    def create_user(self, phone_number=None, password=None, **extra_fields):
         return self._create_user(phone_number, password,
                                  **extra_fields)
 
-    def create_superuser(self, phone_number, password=None, **extra_fields):
+    def create_superuser(self, phone_number=None, password=None, **extra_fields):
         user = self._create_user(phone_number, password, **extra_fields)
         user.is_superuser = True
         user.is_staff = True
@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         DELIVERY = "delivery"
 
     id = models.AutoField(primary_key=True, unique=True)
-    phone_number = models.CharField(max_length=13)
+    phone_number = models.CharField(max_length=13, unique=True)
     company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
     first_name = models.CharField(max_length=400, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(max_length=400, choices=TYPE.choices, default=TYPE.DELIVERY, null=True)
     is_deleted = models.BooleanField(default=False, null=True, blank=True)
 
-    USERNAME_FIELD = 'id'
+    USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
 
