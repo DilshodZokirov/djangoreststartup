@@ -23,7 +23,7 @@ class WorkerModelViewSet(ModelViewSet):
     filter_backends = (SearchFilter,)
 
     def list(self, request, *args, **kwargs):
-        self.queryset = User.objects.filter(company=request.user.company)
+        self.queryset = User.objects.filter(Q(company=request.user.company) & ~Q(user=request.user))
         self.serializer_class = MemberAllSerializer
         return super(WorkerModelViewSet, self).list(request, *args, **kwargs)
 
