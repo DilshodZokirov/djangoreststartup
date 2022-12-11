@@ -47,6 +47,6 @@ class RegistrationModelViewSet(ModelViewSet):
         if User.objects.get(chat_id__isnull=True):
             serializer = self.get_serializer(self.get_object(), data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save(request)
+            serializer.save()
             return Response("Muvaffaqiyatli o'zgartirildi")
         return Response("Bunaqa o'zgaruvchi bor")
