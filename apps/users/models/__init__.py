@@ -48,7 +48,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         DELIVERY = "delivery"
 
     id = models.AutoField(primary_key=True, unique=True)
-    phone_number = models.CharField(max_length=13, unique=True  )
+    chat_id = models.IntegerField(null=True, blank=True)
+    phone_number = models.CharField(max_length=13, unique=True)
     company = models.ForeignKey("Company", on_delete=models.CASCADE, null=True, blank=True, related_name='company')
     first_name = models.CharField(max_length=400, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
