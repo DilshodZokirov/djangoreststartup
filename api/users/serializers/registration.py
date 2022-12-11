@@ -8,13 +8,23 @@ from apps.users.models import User, Company
 
 
 class UserCheckChatIdSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
     chat_id = serializers.IntegerField()
 
     class Meta:
         model = User
         fields = [
+            "id",
             'chat_id'
         ]
+
+    def validate(self, attrs):
+        user = User.objects.get(pk=attrs.get('id'))
+        if user.chat_id is None:
+            user.chat_id = attrs.get('chat_id')
+            user.save()
+            return {"message": "Successfully created"}
+        return {"message": "Bu userni chat_idsi mavjud"}
 
 
 class LoginUserSerializer(serializers.Serializer):

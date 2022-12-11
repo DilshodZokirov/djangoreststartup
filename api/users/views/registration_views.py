@@ -41,13 +41,9 @@ class RegistrationModelViewSet(ModelViewSet):
                 "ru": "Вы успешно зарегистрированы",
             }})
 
-    @action(methods=["PUT"], detail=True)
+    @action(methods=["post"], detail=False)
     def chat_id_update(self, request, *args, **kwargs):
         self.serializer_class = UserCheckChatIdSerializer
-        user = User.objects.get(pk=request.user)
-        if user.chat_id is None:
-            serializer = self.get_serializer(user, data=request.data)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            return Response("Muvaffaqiyatli o'zgartirildi")
-        return Response("Bunaqa o'zgaruvchi bor")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response("Muvaffaqiyatli o'zgartirildi")
