@@ -44,7 +44,7 @@ class RegistrationModelViewSet(ModelViewSet):
     @action(methods=["PUT"], detail=True)
     def chat_id_update(self, request, *args, **kwargs):
         self.serializer_class = UserCheckChatIdSerializer
-        user = User.objects.get(pk=request.user.pk)
+        user = User.objects.get(pk=request.user)
         if user.chat_id is None:
             serializer = self.get_serializer(user, data=request.data)
             serializer.is_valid(raise_exception=True)
