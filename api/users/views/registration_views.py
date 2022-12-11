@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from api.users.serializers.registration import LoginUserSerializer, RegistrationSerializer
+from api.users.serializers.registration import LoginUserSerializer, RegistrationSerializer, UserCheckChatIdSerializer
 from apps.users.models import User
 
 
@@ -40,3 +40,13 @@ class RegistrationModelViewSet(ModelViewSet):
                 "уз": "Муваффақиятли рўйхатдан ўтдингиз",
                 "ru": "Вы успешно зарегистрированы",
             }})
+
+    @action(methods=["PUT"], detail=False)
+    def chat_id_update(self, request, *args, **kwargs):
+        self.serializer_class = UserCheckChatIdSerializer
+        if User.objects.get(chat_id__isnull=True):
+            serializer = self.get_serializer(self.get_object(), data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(request)
+            return Response("Muvaffaqiyatli o'zgartirildi")
+        return Response("Bunaqa o'zgaruvchi bor")

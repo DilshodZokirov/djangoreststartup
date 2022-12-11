@@ -7,6 +7,16 @@ from rest_framework.exceptions import ValidationError
 from apps.users.models import User, Company
 
 
+class UserCheckChatIdSerializer(serializers.ModelSerializer):
+    chat_id = serializers.IntegerField()
+
+    class Meta:
+        model = User
+        fields = [
+            'chat_id'
+        ]
+
+
 class LoginUserSerializer(serializers.Serializer):
     phone_number = serializers.CharField(max_length=255, write_only=True)
     password = serializers.CharField(max_length=255, write_only=True)
@@ -42,6 +52,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField()
     password2 = serializers.CharField()
     company = serializers.CharField()
+    chat_id = serializers.CharField(max_length=30, required=False)
 
     class Meta:
         model = User
@@ -52,7 +63,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
             'company',
             "phone_number",
             "password",
-            "password2"
+            "password2",
+            "chat_id"
         ]
         extra_kwargs = {"id": {"read_only": True}, "password": {"write_only": True}}
 
@@ -112,6 +124,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         password = validated_data.get("password")
         phone_number = validated_data.get('phone_number')
         company_name = validated_data.get("company")
+        chat_id = validated_data.get('chat_id')
         company = Company.objects.create(name=company_name)
         user = User.objects.create_user(
             first_name=first_name,
@@ -121,7 +134,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
             phone_number=phone_number,
             company=company,
             role="office_manager",
-            is_director=True
+            is_director=True,
+            chat_id=chat_id
         )
         company.created_by = user
         company.save()
