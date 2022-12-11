@@ -41,7 +41,7 @@ class RegistrationModelViewSet(ModelViewSet):
                 "ru": "Вы успешно зарегистрированы",
             }})
 
-    @action(methods=["PUT"], detail=False)
+    @action(methods=["PUT"], detail=True)
     def chat_id_update(self, request, *args, **kwargs):
         self.serializer_class = UserCheckChatIdSerializer
         if User.objects.get(chat_id__isnull=True):
