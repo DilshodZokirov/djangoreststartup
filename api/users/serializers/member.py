@@ -58,7 +58,8 @@ class DetailUserCompanySerializer(serializers.ModelSerializer):
             "phone_number",
             "role",
             "email",
-            "date_joined"
+            "date_joined",
+            'company'
         ]
 
 
