@@ -59,7 +59,8 @@ class DetailUserCompanySerializer(serializers.ModelSerializer):
             "role",
             "email",
             "date_joined",
-            'company'
+            'company',
+            "profile_pic"
         ]
 
 
