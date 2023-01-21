@@ -5,7 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import Serializer, ModelSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import serializers
-from apps.users.models import User, District
+from apps.users.models import User, District, Company
 
 choices = (
     ("AGENT", "agent"),
@@ -37,8 +37,17 @@ class DistrictUserSerializer(serializers.ModelSerializer):
         ]
 
 
+class UserCompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = [
+            "name"
+        ]
+
+
 class DetailUserCompanySerializer(serializers.ModelSerializer):
     district = DistrictUserSerializer()
+    company = UserCompanySerializer()
 
     class Meta:
         model = User
