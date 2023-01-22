@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer, \
-    MemberAllSerializer, DetailUserCompanySerializer, MemberUpdateSerializer, UserLastNameUpdateSerializer
+    MemberAllSerializer, DetailUserCompanySerializer, MemberUpdateSerializer
 from apps.users.models import User, District, Company
 from distributive.permissions import IsDirector
 
@@ -57,7 +57,6 @@ class WorkerModelViewSet(ModelViewSet):
             }
             }
         )
-
 
 
 class DistrictApiView(APIView):
