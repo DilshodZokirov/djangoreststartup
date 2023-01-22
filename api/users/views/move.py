@@ -33,10 +33,6 @@ class UserMoveModelView(ModelViewSet):
 
 
 class UserMoveDetail(APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
-
     def get_object(self, pk):
         try:
             return User.objects.get(pk=pk)

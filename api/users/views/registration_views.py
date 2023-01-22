@@ -13,6 +13,7 @@ class RegistrationModelViewSet(ModelViewSet):
     parser_classes = [JSONParser, ]
     permission_classes = [AllowAny, ]
     queryset = User.objects.all()
+    serializer_class = LoginUserSerializer
 
     @swagger_auto_schema(method='post', request_body=LoginUserSerializer)
     @action(methods=['post'], detail=False)

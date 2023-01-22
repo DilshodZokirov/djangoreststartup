@@ -194,3 +194,15 @@ class DistrictClassMemberSerializer(ModelSerializer):
             "id",
             "name"
         ]
+
+
+# class Use
+# class UserFirstNameUpdateSerializer(ModelSerializer):
+#     class UserLastNameUpdateSerializer(ModelSerializer):
+#         last_name = models.CharField(max_length=255)
+#
+#         class Meta:
+#             model = User
+#             fields = [
+#                 "last_name"
+#             ]
