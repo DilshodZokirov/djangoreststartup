@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from api.users.serializers.member import UserCreateSerializer, GetAllSerializer, DistrictClassMemberSerializer, \
-    MemberAllSerializer, DetailUserCompanySerializer, MemberUpdateSerializer
+    MemberAllSerializer, DetailUserCompanySerializer, MemberUpdateSerializer, UserLastNameUpdateSerializer
 from apps.users.models import User, District, Company
 from distributive.permissions import IsDirector
 
@@ -18,7 +18,7 @@ class WorkerModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated, ]
     authentication_classes = [TokenAuthentication, ]
     queryset = User.objects.filter(~Q(role='unemployed'))
-    parser_classes = [MultiPartParser, FileUploadParser]
+    # parser_classes = [MultiPartParser, FileUploadParser]
     serializer_class = GetAllSerializer
     filter_backends = (SearchFilter,)
 
@@ -57,6 +57,7 @@ class WorkerModelViewSet(ModelViewSet):
             }
             }
         )
+
 
 
 class DistrictApiView(APIView):
