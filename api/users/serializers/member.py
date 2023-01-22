@@ -66,7 +66,7 @@ class DetailUserCompanySerializer(serializers.ModelSerializer):
 
 class MemberUpdateSerializer(serializers.ModelSerializer):
     profile_pic = serializers.FileField(required=False)
-    district = serializers.PrimaryKeyRelatedField(queryset=District.objects.all())
+    district = serializers.PrimaryKeyRelatedField(queryset=District.objects.all(), required=False)
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     date_of_birth = serializers.DateField(required=False)
