@@ -87,10 +87,6 @@ class MemberUpdateSerializer(serializers.ModelSerializer):
             'password',
         ]
 
-    def update(self, instance, validated_data):
-        instance.save()
-        return "success"
-
 
 class MemberAllSerializer(serializers.ModelSerializer):
     district = DistrictUserSerializer()
