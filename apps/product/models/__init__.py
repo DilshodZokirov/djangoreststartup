@@ -12,7 +12,7 @@ class Product(BaseModel):
     temporarily_unavailable = models.BooleanField(default=False)
     temporarily = models.CharField(max_length=5000, null=True, blank=True)
     pictures = models.FileField(upload_to='product', null=True, blank=True)
-    expiration_date = models.DateTimeField()
+    expiration_date = models.DateTimeField(null=True, blank=True)
     count = models.IntegerField(null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     size = models.IntegerField(null=True, blank=True)
