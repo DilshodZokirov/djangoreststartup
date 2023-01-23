@@ -33,6 +33,7 @@ class DistrictUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = [
+            "id",
             "name"
         ]
 
@@ -194,7 +195,6 @@ class DistrictClassMemberSerializer(ModelSerializer):
             "id",
             "name"
         ]
-
 
 # class Use
 # class UserFirstNameUpdateSerializer(ModelSerializer):
