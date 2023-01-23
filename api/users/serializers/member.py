@@ -34,6 +34,8 @@ class DistrictUserSerializer(serializers.ModelSerializer):
         model = District
         fields = [
             "id",
+            "description",
+            "created_by",
             "name"
         ]
 
