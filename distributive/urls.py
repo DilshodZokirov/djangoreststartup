@@ -54,7 +54,8 @@ urlpatterns = [
     path(f'{version}/member/', include('api.users.urls2')),
     path(f'{version}/move/', include('api.users.url3')),
     path(f'{version}/product/', include('api.products.urls')),
-    path(f'{version}/orders/', include('api.orders.urls'))
+    path(f'{version}/orders/', include('api.orders.urls')),
+    path(f"{version}/company/", include('api.users.url_company'))
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
