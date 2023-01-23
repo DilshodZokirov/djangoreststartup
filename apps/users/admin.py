@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 
 from apps.users.forms import CustomUserCreationForm, CustomUserChangeForm
-from apps.users.models import District, User, UserMove
+from apps.users.models import District, User, UserMove, Company
 
 
 class CustomUserAdmin(UserAdmin):
@@ -31,6 +31,11 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+
+
+@admin.register(Company)
+class AdminCompany(ModelAdmin):
+    list_display = ['id', 'name', 'description', 'created_by']
 
 
 @admin.register(District)
