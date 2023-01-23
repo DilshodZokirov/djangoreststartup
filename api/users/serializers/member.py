@@ -33,9 +33,6 @@ class DistrictUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = [
-            "id",
-            "description",
-            "created_by",
             "name"
         ]
 
@@ -44,6 +41,9 @@ class UserCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = [
+            "id",
+            "description",
+            "created_by",
             "name"
         ]
 
