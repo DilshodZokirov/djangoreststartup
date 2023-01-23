@@ -16,7 +16,6 @@ class ProductModelViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication, ]
     queryset = Product.objects.all()
     serializer_class = AgentProductSerializer
-    parser_classes = (MultiPartParser, FileUploadParser)
     filter_backends = (SearchFilter,)
 
     def list(self, request, *args, **kwargs):
