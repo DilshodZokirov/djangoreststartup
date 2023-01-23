@@ -82,7 +82,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
     price1 = serializers.FloatField(required=False)
     price2 = serializers.FloatField(required=False)
     compound = serializers.CharField(required=False)
-    expiration_date = serializers.DateTimeField(required=True)
+    expiration_date = serializers.DateTimeField(required=False)
     count = serializers.FloatField(required=False)
     count_of_product = serializers.FloatField(required=False)
 
